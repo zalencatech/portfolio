@@ -1,1679 +1,817 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<title>Azwer Ullah — AI Automation Engineer & Founder</title>
-<meta name="description" content="Azwer Ullah — AI Engineer, Founder of Zalenca Technologies. Building intelligent systems, SaaS platforms and AI automation globally."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Azwer Ullah | AI Engineer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
 <style>
-/* ════════════════════════════════════════════
-   ROOT & RESET
-════════════════════════════════════════════ */
+
 :root{
-  --bg:#030810;--bg2:#060d1a;--bg3:#040b18;
-  --surface:rgba(10,20,40,0.7);
-  --cyan:#00f5ff;--cyan2:#00b8cc;
-  --green:#00ff9d;--gold:#f0c060;
-  --text:#e8edf5;--muted:#5a7090;--muted2:#3a5070;
-  --border:rgba(0,245,255,0.12);--border2:rgba(0,245,255,0.06);
-  --glass:rgba(0,245,255,0.04);--glass2:rgba(255,255,255,0.02);
-  --ff-head:'Syne',sans-serif;
-  --ff-mono:'Space Mono',monospace;
-  --ff-body:'DM Sans',sans-serif;
-  --ease:cubic-bezier(0.16,1,0.3,1);
-  --radius:2px;
-  --nav-h:70px;
+--bg:#040816;
+--bg2:#091224;
+--primary:#00f0ff;
+--secondary:#7b61ff;
+--text:#eef4ff;
+--muted:#8b98b8;
+--card:rgba(255,255,255,0.04);
+--border:rgba(255,255,255,0.09);
+--green:#00ff9d;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-  background:var(--bg);color:var(--text);
-  font-family:var(--ff-body);overflow-x:hidden;
-}
-a{color:inherit;text-decoration:none;}
-button{font-family:inherit;cursor:pointer;border:none;background:none;}
-img{max-width:100%;display:block;}
-::selection{background:rgba(0,245,255,0.25);color:var(--text);}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--cyan2);border-radius:2px;}
-
-/* ════════════════════════════════════════════
-   OVERLAYS
-════════════════════════════════════════════ */
-.noise-overlay{
-  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.grid-overlay{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);
-  background-size:60px 60px;
-}
-#hero-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-
-/* Desktop cursor */
-@media(pointer:fine){
-  body{cursor:none;}
-  #cursor{position:fixed;width:10px;height:10px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .3s,height .3s,background .3s;}
-  #cursor-trail{position:fixed;width:36px;height:36px;border:1px solid rgba(0,245,255,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
-  body:has(a:hover,button:hover) #cursor{width:16px;height:16px;background:var(--green);}
-  body:has(a:hover,button:hover) #cursor-trail{width:52px;height:52px;border-color:rgba(0,255,157,.4);}
+background:linear-gradient(to bottom,#030712,#07101f,#040816);
+color:var(--text);
+font-family:Inter,sans-serif;
+overflow-x:hidden;
 }
 
-/* ════════════════════════════════════════════
-   NAV
-════════════════════════════════════════════ */
+canvas#bg{
+position:fixed;
+inset:0;
+z-index:-1;
+}
+
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 60px;height:var(--nav-h);
-  background:rgba(3,8,16,.7);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border2);
-  transition:background .4s,border-color .4s;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:22px 8%;
+backdrop-filter:blur(18px);
+background:rgba(0,0,0,0.25);
+z-index:1000;
+border-bottom:1px solid rgba(255,255,255,0.06);
 }
-nav.scrolled{background:rgba(3,8,16,.95);}
-.nav-logo{font-family:var(--ff-head);font-size:1.05rem;font-weight:800;color:var(--cyan);letter-spacing:3px;text-transform:uppercase;}
-.nav-logo span{color:var(--text);}
-.nav-links{display:flex;gap:32px;list-style:none;}
-.nav-links a{font-family:var(--ff-mono);font-size:.68rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;transition:color .3s;position:relative;padding-bottom:2px;}
-.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s var(--ease);}
-.nav-links a:hover{color:var(--cyan);}
-.nav-links a:hover::after{width:100%;}
-.nav-cta{font-family:var(--ff-mono);font-size:.68rem;letter-spacing:2px;color:var(--bg);background:var(--cyan);padding:10px 22px;text-transform:uppercase;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);transition:background .3s,transform .2s;}
-.nav-cta:hover{background:var(--green);transform:translateY(-2px);}
-/* Hamburger */
-.nav-hamburger{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer;}
-.nav-hamburger span{display:block;width:24px;height:2px;background:var(--cyan);transition:transform .3s,opacity .3s;}
-.nav-mobile{
-  display:none;position:fixed;top:var(--nav-h);left:0;right:0;
-  background:rgba(3,8,16,.98);backdrop-filter:blur(24px);
-  padding:24px 24px 32px;border-bottom:1px solid var(--border);
-  flex-direction:column;gap:0;z-index:199;
-}
-.nav-mobile.open{display:flex;}
-.nav-mobile a{font-family:var(--ff-mono);font-size:.8rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;padding:16px 0;border-bottom:1px solid var(--border2);display:block;transition:color .3s;}
-.nav-mobile a:hover{color:var(--cyan);}
-.nav-mobile .nav-cta{margin-top:20px;text-align:center;clip-path:none;border-radius:0;}
 
-/* ════════════════════════════════════════════
-   HERO
-════════════════════════════════════════════ */
-#hero{
-  position:relative;min-height:100vh;z-index:1;
-  display:flex;align-items:center;
-  padding:calc(var(--nav-h) + 40px) 60px 80px;
+.logo{
+font-size:1.4rem;
+font-weight:800;
+font-family:Syne;
+letter-spacing:2px;
 }
-.hero-inner{max-width:860px;width:100%;}
-.hero-tag{
-  font-family:var(--ff-mono);font-size:.72rem;letter-spacing:4px;
-  color:var(--cyan);text-transform:uppercase;margin-bottom:24px;
-  display:flex;align-items:center;gap:12px;opacity:0;
-}
-.hero-tag::before{content:'';display:block;width:28px;height:1px;background:var(--cyan);}
-.hero-h1{font-family:var(--ff-head);font-size:clamp(2.8rem,7vw,6.5rem);font-weight:800;line-height:1.0;margin-bottom:28px;opacity:0;}
-.hero-h1 .line{display:block;overflow:hidden;}
-.hero-h1 .word{display:inline-block;transform:translateY(110%);}
-.hero-h1 .accent{color:var(--cyan);}
-.hero-sub{font-size:clamp(.95rem,2vw,1.12rem);color:var(--muted);line-height:1.75;max-width:540px;margin-bottom:44px;opacity:0;}
-.hero-sub strong{color:var(--text);}
-.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;}
-.btn-primary{font-family:var(--ff-mono);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;padding:15px 32px;background:var(--cyan);color:var(--bg);font-weight:700;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);transition:background .3s,transform .25s var(--ease),box-shadow .3s;display:inline-block;}
-.btn-primary:hover{background:var(--green);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,255,157,.28);}
-.btn-ghost{font-family:var(--ff-mono);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;padding:14px 32px;border:1px solid var(--border);color:var(--text);transition:border-color .3s,color .3s,transform .25s var(--ease);display:inline-block;}
-.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-3px);}
-/* Stats */
-.hero-stats{display:flex;gap:48px;margin-top:56px;flex-wrap:wrap;opacity:0;}
-.stat-item{}
-.stat-num{font-family:var(--ff-head);font-size:2.4rem;font-weight:800;color:var(--cyan);line-height:1;display:block;}
-.stat-lbl{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
-/* Scroll */
-.scroll-hint{position:absolute;bottom:36px;left:60px;font-family:var(--ff-mono);font-size:.6rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:12px;animation:fadeInUp 1s 2.2s both;}
-.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,var(--cyan),transparent);animation:scrollPulse 2s infinite;}
-@keyframes scrollPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
-/* ════════════════════════════════════════════
-   PHOTO STRIP (between hero & about)
-════════════════════════════════════════════ */
-#photo-strip{
-  position:relative;z-index:1;padding:0;overflow:hidden;
-  border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);
-  background:var(--bg2);
+.logo span{
+color:var(--primary);
 }
-.photo-slider-wrap{position:relative;overflow:hidden;}
-.photo-slider{
-  display:flex;align-items:stretch;
-  transition:transform .6s var(--ease);
-  will-change:transform;
+
+.nav-links{
+display:flex;
+gap:28px;
 }
-.photo-slide{
-  flex:0 0 100%;position:relative;
-  min-height:min(480px,70vw);
-  display:flex;align-items:flex-end;
+
+.nav-links a{
+color:var(--muted);
+text-decoration:none;
+font-size:0.92rem;
+transition:0.3s;
 }
-.photo-slide img{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center top;
-  filter:brightness(.6) saturate(1.1);
+
+.nav-links a:hover{
+color:var(--primary);
 }
-.photo-slide-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to right,rgba(3,8,16,.9) 0%,rgba(3,8,16,.4) 60%,transparent 100%);
+
+.hero{
+min-height:100vh;
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+padding:120px 8%;
+gap:60px;
 }
-.photo-slide-content{
-  position:relative;z-index:2;padding:40px 48px;max-width:520px;
+
+.hero-left h4{
+color:var(--primary);
+font-size:0.9rem;
+letter-spacing:3px;
+margin-bottom:18px;
+text-transform:uppercase;
 }
-.photo-slide-tag{font-family:var(--ff-mono);font-size:.65rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:10px;}
-.photo-slide-title{font-family:var(--ff-head);font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;line-height:1.15;margin-bottom:10px;}
-.photo-slide-sub{font-size:.9rem;color:rgba(232,237,245,.7);line-height:1.6;}
-/* Nav dots */
-.photo-dots{display:flex;justify-content:center;gap:10px;padding:16px;background:var(--bg2);}
-.photo-dot{width:28px;height:3px;background:var(--border);border-radius:2px;cursor:pointer;transition:background .3s,width .3s;}
-.photo-dot.active{background:var(--cyan);width:44px;}
-.photo-arr{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:44px;height:44px;background:rgba(3,8,16,.7);border:1px solid var(--border);
-  color:var(--cyan);font-size:1.2rem;z-index:5;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .3s,border-color .3s;
+
+.hero-left h1{
+font-size:5rem;
+line-height:1;
+font-family:Syne;
+margin-bottom:22px;
 }
-.photo-arr:hover{background:rgba(0,245,255,.1);border-color:var(--cyan);}
-.photo-arr.prev{left:16px;}
-.photo-arr.next{right:16px;}
 
-/* ════════════════════════════════════════════
-   SECTION BASE
-════════════════════════════════════════════ */
-section{position:relative;z-index:1;padding:100px 60px;}
-.section-tag{font-family:var(--ff-mono);font-size:.68rem;letter-spacing:4px;color:var(--cyan);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
-.section-tag::before{content:'';display:block;width:22px;height:1px;background:var(--cyan);}
-.section-title{font-family:var(--ff-head);font-size:clamp(1.9rem,4vw,3.2rem);font-weight:800;line-height:1.1;margin-bottom:56px;}
-.section-title span{color:var(--cyan);}
-.reveal{opacity:0;transform:translateY(36px);transition:opacity .75s var(--ease),transform .75s var(--ease);}
-.reveal.visible{opacity:1;transform:translateY(0);}
-
-/* ════════════════════════════════════════════
-   ABOUT
-════════════════════════════════════════════ */
-#about{background:var(--bg2);}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;}
-.about-text p{font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:18px;}
-.about-text p strong{color:var(--text);}
-.about-globe-wrap{position:relative;display:flex;justify-content:center;align-items:center;height:400px;}
-#globe-canvas{width:100%;height:100%;}
-.about-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px;}
-.tag{font-family:var(--ff-mono);font-size:.65rem;letter-spacing:2px;border:1px solid var(--border);color:var(--cyan);padding:5px 14px;text-transform:uppercase;transition:background .2s,border-color .2s;}
-.tag:hover{background:rgba(0,245,255,.07);border-color:var(--cyan);}
-
-/* ════════════════════════════════════════════
-   SKILLS
-════════════════════════════════════════════ */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
-.skill-card{background:var(--glass);border:1px solid var(--border);padding:28px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s var(--ease);}
-.skill-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
-.skill-card:hover{border-color:var(--cyan);transform:translateY(-5px);}
-.skill-card:hover::before{transform:scaleX(1);}
-.skill-icon{font-size:1.8rem;margin-bottom:14px;}
-.skill-title{font-family:var(--ff-head);font-size:1rem;font-weight:700;margin-bottom:10px;}
-.skill-items{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
-.skill-tag{font-family:var(--ff-mono);font-size:.58rem;letter-spacing:1px;background:rgba(0,245,255,.06);border:1px solid rgba(0,245,255,.14);color:var(--muted);padding:3px 9px;}
-
-/* ════════════════════════════════════════════
-   SERVICES
-════════════════════════════════════════════ */
-#services{background:var(--bg2);}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;background:var(--border2);}
-.service-item{background:var(--bg2);padding:36px;position:relative;overflow:hidden;transition:background .3s,transform .3s var(--ease);cursor:default;}
-.service-item::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,245,255,.07) 0%,transparent 60%);opacity:0;transition:opacity .3s;}
-.service-item:hover{background:rgba(0,245,255,.03);transform:translateY(-3px);}
-.service-item:hover::after{opacity:1;}
-.service-num{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:3px;color:var(--cyan);margin-bottom:20px;opacity:.5;}
-.service-name{font-family:var(--ff-head);font-size:1.15rem;font-weight:700;margin-bottom:12px;}
-.service-desc{font-size:.9rem;color:var(--muted);line-height:1.7;}
-.service-arrow{position:absolute;bottom:28px;right:28px;width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.1rem;transition:border-color .3s,color .3s,transform .3s var(--ease);}
-.service-item:hover .service-arrow{border-color:var(--cyan);color:var(--cyan);transform:rotate(45deg);}
-
-/* ════════════════════════════════════════════
-   PROJECTS
-════════════════════════════════════════════ */
-.projects-filter{display:flex;gap:10px;margin-bottom:44px;flex-wrap:wrap;}
-.filter-btn{font-family:var(--ff-mono);font-size:.65rem;letter-spacing:2px;border:1px solid var(--border);color:var(--muted);padding:8px 18px;text-transform:uppercase;transition:all .3s;}
-.filter-btn.active,.filter-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,245,255,.07);}
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;}
-.project-card{background:var(--glass);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .3s,transform .35s var(--ease),box-shadow .35s;position:relative;}
-.project-card:hover{border-color:rgba(0,245,255,.4);transform:translateY(-7px);box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 32px rgba(0,245,255,.07);}
-.project-img{height:180px;overflow:hidden;position:relative;background:linear-gradient(135deg,#0a1828,#061020);display:flex;align-items:center;justify-content:center;}
-.project-emoji{font-size:3.5rem;transition:transform .5s var(--ease);}
-.project-card:hover .project-emoji{transform:scale(1.15);}
-.project-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg),transparent 50%);}
-.project-body{padding:24px;}
-.project-cats{display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap;}
-.project-cat{font-family:var(--ff-mono);font-size:.57rem;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;border:1px solid rgba(0,245,255,.22);padding:2px 9px;}
-.project-title{font-family:var(--ff-head);font-size:1.1rem;font-weight:700;margin-bottom:8px;}
-.project-desc{font-size:.87rem;color:var(--muted);line-height:1.6;margin-bottom:16px;}
-.project-tech{display:flex;flex-wrap:wrap;gap:5px;}
-.tech-tag{font-family:var(--ff-mono);font-size:.55rem;background:rgba(0,245,255,.05);border:1px solid rgba(0,245,255,.1);color:var(--muted);padding:2px 7px;}
-.project-hover-btn{position:absolute;top:90px;left:50%;transform:translate(-50%,-50%) scale(0);background:var(--cyan);color:var(--bg);font-family:var(--ff-mono);font-size:.65rem;letter-spacing:2px;padding:10px 24px;text-transform:uppercase;font-weight:700;transition:transform .3s var(--ease);white-space:nowrap;z-index:2;}
-.project-card:hover .project-hover-btn{transform:translate(-50%,-50%) scale(1);}
-/* Voice btn on project card */
-.project-voice-btn{
-  position:absolute;top:12px;right:12px;z-index:3;
-  width:36px;height:36px;background:rgba(3,8,16,.8);
-  border:1px solid var(--border);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;cursor:pointer;
-  transition:border-color .3s,background .3s;
+.hero-left h1 span{
+color:var(--primary);
 }
-.project-voice-btn:hover{border-color:var(--green);background:rgba(0,255,157,.1);}
-.project-voice-btn.speaking{border-color:var(--green);background:rgba(0,255,157,.2);animation:voicePulse 1s infinite;}
-@keyframes voicePulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,157,.4);}50%{box-shadow:0 0 0 8px rgba(0,255,157,0);}}
 
-/* ════════════════════════════════════════════
-   MODAL
-════════════════════════════════════════════ */
-#modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(3,8,16,.97);backdrop-filter:blur(20px);display:none;overflow-y:auto;opacity:0;transition:opacity .4s;}
-#modal-overlay.open{display:block;opacity:1;}
-.modal-inner{max-width:860px;margin:0 auto;padding:60px 48px 100px;}
-.modal-close{position:sticky;top:16px;float:right;width:44px;height:44px;background:var(--glass);border:1px solid var(--border);color:var(--text);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .3s,color .3s;z-index:10;}
-.modal-close:hover{border-color:var(--cyan);color:var(--cyan);}
-.modal-tag{font-family:var(--ff-mono);font-size:.65rem;letter-spacing:4px;color:var(--cyan);text-transform:uppercase;margin-bottom:14px;clear:both;padding-top:16px;}
-.modal-title{font-family:var(--ff-head);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:24px;}
-.modal-emoji-lg{font-size:4rem;margin-bottom:24px;display:block;}
-.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:36px 0;}
-.case-block{background:var(--glass);border:1px solid var(--border);padding:24px;}
-.case-block h4{font-family:var(--ff-mono);font-size:.62rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:10px;}
-.case-block p{font-size:.92rem;color:var(--muted);line-height:1.7;}
-.modal-section{margin:36px 0;}
-.modal-section h3{font-family:var(--ff-head);font-size:1.3rem;font-weight:700;margin-bottom:16px;}
-.modal-section p{font-size:.95rem;color:var(--muted);line-height:1.75;}
-.modal-tech-list{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px;}
-.modal-tech{font-family:var(--ff-mono);font-size:.67rem;letter-spacing:1.5px;border:1px solid var(--border);color:var(--cyan);padding:5px 14px;}
-.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;}
-.impact-stat{text-align:center;background:var(--glass);border:1px solid var(--border);padding:20px 12px;}
-.impact-stat .num{font-family:var(--ff-head);font-size:1.7rem;font-weight:800;color:var(--cyan);display:block;}
-.impact-stat .lbl{font-family:var(--ff-mono);font-size:.58rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
-/* Modal voice */
-.modal-voice-btn{
-  display:flex;align-items:center;gap:10px;
-  font-family:var(--ff-mono);font-size:.68rem;letter-spacing:2px;text-transform:uppercase;
-  border:1px solid var(--green);color:var(--green);
-  padding:10px 20px;cursor:pointer;margin-bottom:32px;
-  background:rgba(0,255,157,.06);transition:background .3s;
+.hero-left p{
+font-size:1.08rem;
+line-height:1.8;
+color:var(--muted);
+max-width:700px;
+margin-bottom:40px;
 }
-.modal-voice-btn:hover,.modal-voice-btn.active{background:rgba(0,255,157,.15);}
-.modal-voice-btn .voice-icon{font-size:1.1rem;}
-.wave-bars{display:flex;align-items:center;gap:3px;height:16px;}
-.wave-bars span{display:block;width:3px;background:var(--green);border-radius:2px;animation:none;}
-.modal-voice-btn.active .wave-bars span{animation:waveBounce .5s infinite alternate;}
-.wave-bars span:nth-child(1){height:4px;animation-delay:0s;}
-.wave-bars span:nth-child(2){height:10px;animation-delay:.1s;}
-.wave-bars span:nth-child(3){height:16px;animation-delay:.2s;}
-.wave-bars span:nth-child(4){height:10px;animation-delay:.3s;}
-.wave-bars span:nth-child(5){height:4px;animation-delay:.4s;}
-@keyframes waveBounce{from{height:2px;}to{height:16px;}}
 
-/* ════════════════════════════════════════════
-   AI SYSTEMS
-════════════════════════════════════════════ */
-#ai-systems{background:var(--bg2);}
-.ai-systems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;}
-.ai-card{background:var(--glass);border:1px solid var(--border);padding:28px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s var(--ease);}
-.ai-card::before{content:'';position:absolute;top:0;right:0;width:100px;height:100px;background:radial-gradient(circle,rgba(0,245,255,.05),transparent 70%);}
-.ai-card:hover{border-color:rgba(0,255,157,.35);transform:translateY(-5px);}
-.ai-card-icon{font-size:2rem;margin-bottom:16px;width:52px;height:52px;background:rgba(0,245,255,.07);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;}
-.ai-card-title{font-family:var(--ff-head);font-size:1rem;font-weight:700;margin-bottom:9px;}
-.ai-card-desc{font-size:.85rem;color:var(--muted);line-height:1.65;}
-.ai-badge{position:absolute;top:18px;right:18px;font-family:var(--ff-mono);font-size:.55rem;letter-spacing:2px;background:rgba(0,255,157,.1);border:1px solid rgba(0,255,157,.3);color:var(--green);padding:2px 9px;text-transform:uppercase;}
-
-/* ════════════════════════════════════════════
-   COMPANY
-════════════════════════════════════════════ */
-#company{position:relative;overflow:hidden;}
-.company-inner{background:var(--glass);border:1px solid var(--border);padding:72px;position:relative;overflow:hidden;}
-.company-inner::before{content:'ZALENCA';position:absolute;right:-20px;bottom:-50px;font-family:var(--ff-head);font-size:min(13rem,20vw);font-weight:800;color:rgba(0,245,255,.025);line-height:1;pointer-events:none;white-space:nowrap;}
-.company-logo{font-family:var(--ff-head);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:4px;text-transform:uppercase;margin-bottom:12px;}
-.company-logo span{color:var(--cyan);}
-.company-tagline{font-family:var(--ff-mono);font-size:.75rem;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:36px;}
-.company-desc{font-size:1.05rem;color:var(--muted);line-height:1.8;max-width:600px;margin-bottom:44px;}
-.company-stats{display:flex;gap:52px;margin-bottom:44px;flex-wrap:wrap;}
-.company-stat .num{font-family:var(--ff-head);font-size:2.6rem;font-weight:800;color:var(--cyan);}
-.company-stat .lbl{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
-.company-services-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:44px;}
-.company-service{border:1px solid var(--border);padding:14px 18px;font-family:var(--ff-mono);font-size:.68rem;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;transition:border-color .3s,color .3s;}
-.company-service:hover{border-color:var(--cyan);color:var(--cyan);}
-
-/* ════════════════════════════════════════════
-   CONTACT
-════════════════════════════════════════════ */
-#contact{background:var(--bg2);}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;}
-.contact-headline{font-family:var(--ff-head);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;line-height:1.1;margin-bottom:20px;}
-.contact-sub{font-size:.95rem;color:var(--muted);line-height:1.7;margin-bottom:40px;}
-.contact-links{display:flex;flex-direction:column;gap:16px;}
-.contact-link{display:flex;align-items:center;gap:18px;text-decoration:none;padding:20px;border:1px solid var(--border);background:var(--glass);transition:border-color .3s,transform .3s var(--ease),background .3s;}
-.contact-link:hover{border-color:var(--cyan);transform:translateX(7px);background:rgba(0,245,255,.04);}
-.contact-link-icon{width:44px;height:44px;background:rgba(0,245,255,.07);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
-.contact-link-info .platform{font-family:var(--ff-mono);font-size:.6rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:3px;}
-.contact-link-info .handle{font-size:.95rem;color:var(--text);font-weight:500;}
-.form-group{margin-bottom:18px;}
-.form-group label{display:block;font-family:var(--ff-mono);font-size:.6rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:9px;}
-.form-group input,.form-group textarea,.form-group select{width:100%;background:var(--glass);border:1px solid var(--border);color:var(--text);font-family:var(--ff-body);font-size:.95rem;padding:14px 18px;outline:none;transition:border-color .3s;-webkit-appearance:none;}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--cyan);}
-.form-group textarea{height:130px;resize:vertical;}
-.form-group select option{background:var(--bg2);}
-.form-submit{width:100%;background:var(--cyan);color:var(--bg);font-family:var(--ff-mono);font-size:.75rem;letter-spacing:3px;padding:16px;border:none;cursor:pointer;text-transform:uppercase;font-weight:700;transition:background .3s,transform .2s var(--ease);clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);}
-.form-submit:hover{background:var(--green);transform:translateY(-2px);}
-
-/* ════════════════════════════════════════════
-   FOOTER
-════════════════════════════════════════════ */
-footer{padding:36px 60px;border-top:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--ff-mono);font-size:.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;position:relative;z-index:1;}
-footer a{color:var(--cyan);transition:color .2s;}
-footer a:hover{color:var(--green);}
-.footer-social{display:flex;gap:16px;}
-.footer-social a{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:border-color .3s,background .3s;}
-.footer-social a:hover{border-color:var(--cyan);background:rgba(0,245,255,.08);}
-
-/* ════════════════════════════════════════════
-   AI CHATBOT
-════════════════════════════════════════════ */
-#chat-fab{
-  position:fixed;bottom:28px;right:28px;z-index:300;
-  width:60px;height:60px;background:linear-gradient(135deg,var(--cyan),var(--green));
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;cursor:pointer;
-  box-shadow:0 8px 32px rgba(0,245,255,.4);
-  transition:transform .3s var(--ease),box-shadow .3s;
+.hero-buttons{
+display:flex;
+gap:18px;
+flex-wrap:wrap;
 }
-#chat-fab:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 12px 40px rgba(0,245,255,.5);}
-#chat-fab .chat-pulse{
-  position:absolute;inset:-4px;border-radius:50%;
-  border:2px solid var(--cyan);opacity:.4;
-  animation:chatPulse 2s infinite;
-}
-@keyframes chatPulse{0%{transform:scale(1);opacity:.4;}100%{transform:scale(1.5);opacity:0;}}
-.chat-notif{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:var(--green);border-radius:50%;font-size:.55rem;color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--ff-mono);font-weight:700;}
 
-#chat-window{
-  position:fixed;bottom:104px;right:28px;z-index:300;
-  width:min(400px,calc(100vw - 32px));
-  height:520px;
-  background:var(--bg2);border:1px solid var(--cyan);
-  display:none;flex-direction:column;
-  box-shadow:0 24px 80px rgba(0,0,0,.7),0 0 40px rgba(0,245,255,.12);
-  border-radius:2px;overflow:hidden;
+.btn{
+padding:16px 28px;
+border-radius:14px;
+text-decoration:none;
+font-weight:600;
+transition:0.3s;
 }
-#chat-window.open{display:flex;}
+
+.btn-primary{
+background:linear-gradient(90deg,var(--primary),var(--secondary));
+color:black;
+}
+
+.btn-primary:hover{
+transform:translateY(-5px);
+}
+
+.btn-outline{
+border:1px solid rgba(255,255,255,0.12);
+color:white;
+}
+
+.hero-right{
+position:relative;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.avatar-wrapper{
+position:relative;
+width:420px;
+height:420px;
+border-radius:50%;
+overflow:hidden;
+background:linear-gradient(135deg,#0c1a2d,#08111f);
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 0 80px rgba(0,240,255,0.15);
+}
+
+.avatar-wrapper img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.ai-orb{
+position:absolute;
+width:90px;
+height:90px;
+background:radial-gradient(circle,var(--primary),transparent 70%);
+filter:blur(10px);
+animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0px)}
+50%{transform:translateY(-20px)}
+100%{transform:translateY(0px)}
+}
+
+.section{
+padding:120px 8%;
+}
+
+.section-title{
+font-size:3rem;
+font-family:Syne;
+margin-bottom:60px;
+}
+
+.section-title span{
+color:var(--primary);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:28px;
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--border);
+padding:30px;
+border-radius:24px;
+transition:0.35s;
+backdrop-filter:blur(20px);
+position:relative;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:rgba(0,240,255,0.4);
+}
+
+.card h3{
+font-size:1.3rem;
+margin-bottom:14px;
+}
+
+.card p{
+color:var(--muted);
+line-height:1.8;
+}
+
+.project-card{
+min-height:420px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.project-top{
+margin-bottom:20px;
+}
+
+.project-icon{
+font-size:3rem;
+margin-bottom:20px;
+}
+
+.tech-stack{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:18px;
+}
+
+.tech{
+padding:8px 14px;
+font-size:0.75rem;
+background:rgba(255,255,255,0.04);
+border-radius:999px;
+color:var(--primary);
+}
+
+.ai-chat-widget{
+position:fixed;
+right:25px;
+bottom:25px;
+width:360px;
+height:560px;
+background:#07101f;
+border:1px solid rgba(255,255,255,0.08);
+border-radius:28px;
+z-index:10000;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+box-shadow:0 0 80px rgba(0,0,0,0.5);
+}
+
 .chat-header{
-  padding:16px 20px;background:linear-gradient(135deg,rgba(0,245,255,.1),rgba(0,255,157,.05));
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:12px;
+padding:20px;
+display:flex;
+align-items:center;
+gap:15px;
+border-bottom:1px solid rgba(255,255,255,0.06);
+background:rgba(255,255,255,0.03);
 }
-.chat-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--green));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
-.chat-header-info .chat-name{font-family:var(--ff-head);font-weight:700;font-size:.95rem;}
-.chat-header-info .chat-status{font-family:var(--ff-mono);font-size:.58rem;letter-spacing:2px;color:var(--green);display:flex;align-items:center;gap:5px;}
-.chat-status-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:chatPulse 1.5s infinite;}
-.chat-close{margin-left:auto;background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;transition:color .2s;}
-.chat-close:hover{color:var(--cyan);}
-.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;}
-.chat-messages::-webkit-scrollbar{width:3px;}
-.chat-messages::-webkit-scrollbar-thumb{background:var(--muted2);}
-.msg{max-width:88%;animation:msgSlide .3s var(--ease);}
-@keyframes msgSlide{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.msg.bot{align-self:flex-start;}
-.msg.user{align-self:flex-end;}
-.msg-bubble{padding:10px 14px;font-size:.88rem;line-height:1.5;}
-.msg.bot .msg-bubble{background:var(--glass2);border:1px solid var(--border);border-radius:0 8px 8px 8px;color:var(--text);}
-.msg.user .msg-bubble{background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);border-radius:8px 0 8px 8px;font-weight:500;}
-.msg-meta{font-family:var(--ff-mono);font-size:.53rem;letter-spacing:1px;color:var(--muted);margin-top:4px;}
-.msg.user .msg-meta{text-align:right;}
-.chat-typing{align-self:flex-start;padding:10px 14px;background:var(--glass2);border:1px solid var(--border);}
-.typing-dots span{display:inline-block;width:5px;height:5px;background:var(--muted);border-radius:50%;animation:typDot 1.2s infinite;margin:0 2px;}
-.typing-dots span:nth-child(2){animation-delay:.2s;}
-.typing-dots span:nth-child(3){animation-delay:.4s;}
-@keyframes typDot{0%,80%,100%{opacity:.2;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
-.chat-input-area{padding:12px;border-top:1px solid var(--border);display:flex;gap:10px;background:rgba(3,8,16,.6);}
-.chat-input{flex:1;background:var(--glass);border:1px solid var(--border);color:var(--text);font-family:var(--ff-body);font-size:.88rem;padding:10px 14px;outline:none;transition:border-color .3s;border-radius:0;}
-.chat-input:focus{border-color:var(--cyan);}
-.chat-input::placeholder{color:var(--muted);}
-.chat-send{width:40px;height:40px;background:var(--cyan);color:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:background .3s;flex-shrink:0;}
-.chat-send:hover{background:var(--green);}
-.chat-suggestions{padding:0 12px 10px;display:flex;gap:7px;flex-wrap:wrap;}
-.chat-sug{font-family:var(--ff-mono);font-size:.58rem;letter-spacing:1px;border:1px solid var(--border);color:var(--muted);padding:4px 10px;cursor:pointer;transition:border-color .3s,color .3s;white-space:nowrap;}
-.chat-sug:hover{border-color:var(--cyan);color:var(--cyan);}
 
-/* ════════════════════════════════════════════
-   GLITCH
-════════════════════════════════════════════ */
-.glitch{position:relative;}
-.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;}
-.glitch::before{color:var(--cyan);animation:glitch1 5s infinite;clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);}
-.glitch::after{color:var(--green);animation:glitch2 5s infinite;clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);}
-@keyframes glitch1{0%,90%,100%{transform:translateX(0);}93%{transform:translateX(-3px);}96%{transform:translateX(3px);}}
-@keyframes glitch2{0%,88%,100%{transform:translateX(0);}91%{transform:translateX(3px);}94%{transform:translateX(-3px);}}
+.chat-avatar{
+width:52px;
+height:52px;
+border-radius:50%;
+overflow:hidden;
+}
 
-/* ════════════════════════════════════════════
-   MOBILE RESPONSIVE
-════════════════════════════════════════════ */
-@media(max-width:1024px){
-  nav{padding:0 32px;}
-  section{padding:80px 32px;}
-  #hero{padding:calc(var(--nav-h)+32px) 32px 60px;}
-  .scroll-hint{left:32px;}
-  .about-grid{gap:48px;}
-  .contact-grid{gap:48px;}
-  .company-inner{padding:52px 48px;}
-  footer{padding:28px 32px;}
+.chat-avatar img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
-@media(max-width:768px){
-  :root{--nav-h:64px;}
-  nav{padding:0 20px;}
-  .nav-links{display:none;}
-  .nav-cta{display:none;}
-  .nav-hamburger{display:flex;}
-  section{padding:64px 20px;}
-  #hero{padding:calc(var(--nav-h)+24px) 20px 48px;}
-  .hero-btns{gap:12px;}
-  .hero-stats{gap:28px;margin-top:40px;}
-  .stat-num{font-size:2rem;}
-  .scroll-hint{display:none;}
-  .about-grid{grid-template-columns:1fr;gap:32px;}
-  .about-globe-wrap{height:280px;}
-  .case-grid{grid-template-columns:1fr;}
-  .impact-grid{grid-template-columns:1fr 1fr;}
-  .contact-grid{grid-template-columns:1fr;gap:40px;}
-  .company-inner{padding:32px 20px;}
-  .company-inner::before{display:none;}
-  .company-stats{gap:28px;}
-  .services-grid{grid-template-columns:1fr;}
-  .projects-grid{grid-template-columns:1fr;}
-  footer{flex-direction:column;text-align:center;padding:24px 20px;gap:16px;}
-  .modal-inner{padding:24px 20px 60px;}
-  .modal-close{top:0;}
-  #chat-window{bottom:88px;right:12px;left:12px;width:auto;}
-  #chat-fab{bottom:20px;right:20px;width:54px;height:54px;font-size:1.3rem;}
-  .photo-slide-content{padding:24px 20px;}
+
+.chat-body{
+flex:1;
+padding:20px;
+overflow:auto;
 }
-@media(max-width:480px){
-  .hero-h1{font-size:clamp(2.2rem,10vw,3.5rem);}
-  .btn-primary,.btn-ghost{padding:13px 24px;font-size:.7rem;}
-  .impact-grid{grid-template-columns:1fr;}
-  .skills-grid{grid-template-columns:1fr;}
-  .ai-systems-grid{grid-template-columns:1fr;}
+
+.message{
+margin-bottom:18px;
+padding:14px;
+border-radius:16px;
+max-width:90%;
+line-height:1.6;
 }
+
+.bot{
+background:rgba(0,240,255,0.08);
+}
+
+.user{
+background:rgba(123,97,255,0.15);
+margin-left:auto;
+}
+
+.chat-input{
+display:flex;
+padding:16px;
+gap:12px;
+border-top:1px solid rgba(255,255,255,0.05);
+}
+
+.chat-input input{
+flex:1;
+background:#091224;
+border:none;
+padding:14px;
+color:white;
+border-radius:12px;
+}
+
+.chat-input button{
+padding:14px 18px;
+border:none;
+background:linear-gradient(90deg,var(--primary),var(--secondary));
+color:black;
+font-weight:700;
+border-radius:12px;
+cursor:pointer;
+}
+
+.timeline{
+position:relative;
+padding-left:40px;
+}
+
+.timeline::before{
+content:"";
+position:absolute;
+left:8px;
+top:0;
+bottom:0;
+width:2px;
+background:rgba(255,255,255,0.08);
+}
+
+.timeline-item{
+position:relative;
+margin-bottom:50px;
+}
+
+.timeline-item::before{
+content:"";
+position:absolute;
+left:-39px;
+top:8px;
+width:18px;
+height:18px;
+border-radius:50%;
+background:var(--primary);
+box-shadow:0 0 20px var(--primary);
+}
+
+.voice-btn{
+margin-top:18px;
+padding:12px 16px;
+border:none;
+background:rgba(0,240,255,0.12);
+color:var(--primary);
+border-radius:12px;
+cursor:pointer;
+}
+
+footer{
+padding:60px 8%;
+text-align:center;
+color:var(--muted);
+border-top:1px solid rgba(255,255,255,0.06);
+}
+
+@media(max-width:1000px){
+
+.hero{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.hero-left h1{
+font-size:3.5rem;
+}
+
+.hero-left p{
+margin:auto;
+margin-bottom:40px;
+}
+
+.hero-buttons{
+justify-content:center;
+}
+
+.avatar-wrapper{
+width:320px;
+height:320px;
+}
+
+.ai-chat-widget{
+width:100%;
+height:70vh;
+right:0;
+bottom:0;
+border-radius:25px 25px 0 0;
+}
+
+.nav-links{
+display:none;
+}
+
+}
+
 </style>
 </head>
 <body>
 
-<div class="noise-overlay"></div>
-<div class="grid-overlay"></div>
-<div id="cursor"></div>
-<div id="cursor-trail"></div>
-<canvas id="hero-canvas"></canvas>
+<canvas id="bg"></canvas>
 
-<!-- ════ NAV ════ -->
-<nav id="navbar">
-  <a href="#" class="nav-logo">AZ<span>WER</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#ai-systems">AI Systems</a></li>
-    <li><a href="#company">Zalenca</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Hire Me</a>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+<nav>
+<div class="logo">AZ<span>WER</span></div>
+<div class="nav-links">
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#ai">AI Systems</a>
+<a href="#contact">Contact</a>
+</div>
 </nav>
-<div class="nav-mobile" id="nav-mobile">
-  <a href="#about" class="nav-mobile-link">About</a>
-  <a href="#skills" class="nav-mobile-link">Skills</a>
-  <a href="#services" class="nav-mobile-link">Services</a>
-  <a href="#projects" class="nav-mobile-link">Projects</a>
-  <a href="#ai-systems" class="nav-mobile-link">AI Systems</a>
-  <a href="#company" class="nav-mobile-link">Zalenca</a>
-  <a href="#contact" class="nav-mobile-link">Contact</a>
-  <a href="#contact" class="nav-cta">Hire Me</a>
+
+<section class="hero">
+
+<div class="hero-left">
+<h4>AI Engineer • Founder • Full Stack Developer</h4>
+<h1>
+Azwer <span>Ullah</span>
+</h1>
+
+<p>
+I am an AI Engineer, Full Stack Developer, Entrepreneur, and Founder of Zalenca Technologies. I build advanced AI systems, SaaS platforms, automation pipelines, and modern digital infrastructures for global businesses.
+</p>
+
+<div class="hero-buttons">
+<a href="#projects" class="btn btn-primary">Explore Portfolio</a>
+<a href="https://zalenca.technology" class="btn btn-outline">Visit Zalenca</a>
+</div>
 </div>
 
-<!-- ════ HERO ════ -->
-<section id="hero">
-  <div class="hero-inner">
-    <div class="hero-tag">🌍 Available for projects worldwide</div>
-    <h1 class="hero-h1 glitch" data-text="AI Automation Engineer &amp; Founder">
-      <span class="line"><span class="word">AI Automation</span></span>
-      <span class="line"><span class="word accent">Engineer</span></span>
-      <span class="line"><span class="word">&amp; Founder</span></span>
-    </h1>
-    <p class="hero-sub">
-      <strong>Azwer Ullah</strong> — Building the future with intelligent systems, SaaS platforms, and AI automation. Founder &amp; CEO of <strong>Zalenca Technologies</strong>. Operating globally across Pakistan, Canada, Dubai &amp; beyond.
-    </p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn-primary">View My Work</a>
-      <a href="#contact" class="btn-ghost">Let's Collaborate</a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num" data-count="1000">0</span>
-        <span class="stat-lbl">Projects Delivered</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" data-count="5">0</span>
-        <span class="stat-lbl">Years Experience</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" data-count="20">0</span>
-        <span class="stat-lbl">AI Systems Built</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" data-count="4">0</span>
-        <span class="stat-lbl">Continents Served</span>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    Scroll to explore
-  </div>
-</section>
-
-<!-- ════ PHOTO STRIP ════ -->
-<div id="photo-strip">
-  <div class="photo-slider-wrap">
-    <button class="photo-arr prev" id="photo-prev">&#8592;</button>
-    <button class="photo-arr next" id="photo-next">&#8594;</button>
-    <div class="photo-slider" id="photo-slider">
-
-      <!-- Slide 1: Snow / Canada -->
-      <div class="photo-slide">
-        <img src="ChatGPT_Image_May_18__2026__08_42_42_PM.png" alt="Azwer Ullah in Canada" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#0a1828,#030810)'"/>
-        <div class="photo-slide-overlay"></div>
-        <div class="photo-slide-content">
-          <div class="photo-slide-tag">📍 Canada · Quebec City</div>
-          <div class="photo-slide-title">Azwer Ullah — <br/>AI Engineer & Founder</div>
-          <div class="photo-slide-sub">Building intelligent systems from Lahore to Canada, Dubai and beyond. Turning AI research into real-world impact.</div>
-        </div>
-      </div>
-
-      <!-- Slide 2: Dubai -->
-      <div class="photo-slide">
-        <img src="ChatGPT_Image_May_17__2026__03_32_33_PM.png" alt="Azwer Ullah in Dubai" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#1a0a08,#100603)'"/>
-        <div class="photo-slide-overlay"></div>
-        <div class="photo-slide-content">
-          <div class="photo-slide-tag">📍 Dubai · UAE</div>
-          <div class="photo-slide-title">Founder of <br/>Zalenca Technologies</div>
-          <div class="photo-slide-sub">Serving clients globally — AI automation, SaaS platforms, and digital transformation at enterprise scale.</div>
-        </div>
-      </div>
-
-      <!-- Slide 3: Toronto -->
-      <div class="photo-slide">
-        <img src="ChatGPT_Image_May_17__2026__03_32_27_PM.png" alt="Azwer Ullah in Toronto" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#08100a,#030810)'"/>
-        <div class="photo-slide-overlay"></div>
-        <div class="photo-slide-content">
-          <div class="photo-slide-tag">📍 Toronto · Canada</div>
-          <div class="photo-slide-title">Building the Future <br/>One System at a Time</div>
-          <div class="photo-slide-sub">Currently pursuing a Major in AI while co-founding ventures, engineering automation, and shipping products globally.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <div class="photo-dots" id="photo-dots"></div>
+<div class="hero-right">
+<div class="ai-orb"></div>
+<div class="avatar-wrapper">
+<img src="assets/avatar1.png" alt="Azwer Avatar">
+</div>
 </div>
 
-<!-- ════ ABOUT ════ -->
-<section id="about">
-  <div class="section-tag">About Me</div>
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <h2 class="section-title">The Mind Behind <span>The Machine</span></h2>
-      <p>I'm <strong>Azwer Ullah</strong> — an AI Developer, automation architect, and serial tech entrepreneur with <strong>5+ years</strong> of experience transforming businesses through intelligent software. I don't just write code — I engineer systems that think, automate, and scale.</p>
-      <p>Starting as a freelance web developer in 2021, I rapidly evolved into building full-scale <strong>AI automation pipelines, SaaS platforms, and enterprise management systems</strong> for clients across four continents. In 2023, I founded <strong>Zalenca Technologies</strong> — a global AI & tech agency delivering cutting-edge solutions.</p>
-      <p>Currently pursuing a <strong>MAJOR in AI</strong> while simultaneously operating as an AI Engineer at Turing and Co-Founding Engineer at Urtaqa — because building the future doesn't wait for graduation.</p>
-      <p>My vision: <strong>bridge the gap between AI research and real-world business impact</strong> — from Lahore to Canada, Dubai to China, one intelligent system at a time.</p>
-      <div class="about-tags">
-        <span class="tag">Pakistan 🇵🇰</span>
-        <span class="tag">Canada 🇨🇦</span>
-        <span class="tag">Dubai 🇦🇪</span>
-        <span class="tag">China 🇨🇳</span>
-        <span class="tag">AI Products</span>
-        <span class="tag">EdTech</span>
-        <span class="tag">SaaS</span>
-        <span class="tag">Robotics Vision</span>
-        <span class="tag">AI Wearables</span>
-      </div>
-    </div>
-    <div class="about-globe-wrap reveal">
-      <canvas id="globe-canvas"></canvas>
-    </div>
-  </div>
 </section>
 
-<!-- ════ SKILLS ════ -->
-<section id="skills">
-  <div class="section-tag">Technical Arsenal</div>
-  <h2 class="section-title">Skills &amp; <span>Expertise</span></h2>
-  <div class="skills-grid">
-    <div class="skill-card reveal">
-      <div class="skill-icon">🤖</div>
-      <div class="skill-title">AI & Machine Learning</div>
-      <p style="font-size:.88rem;color:var(--muted);line-height:1.6;">Building intelligent systems from prompt-engineered chatbots to full LLM-powered automation pipelines and NLP engines.</p>
-      <div class="skill-items">
-        <span class="skill-tag">OpenAI APIs</span><span class="skill-tag">LangChain</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">LLM Integration</span><span class="skill-tag">NLP</span><span class="skill-tag">AI Workflow Design</span><span class="skill-tag">RAG Systems</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">⚡</div>
-      <div class="skill-title">Automation Engineering</div>
-      <p style="font-size:.88rem;color:var(--muted);line-height:1.6;">Designing no-code and custom-code automation systems that eliminate manual work and scale business operations 10x.</p>
-      <div class="skill-items">
-        <span class="skill-tag">Zapier</span><span class="skill-tag">Make (Integromat)</span><span class="skill-tag">n8n</span><span class="skill-tag">Custom Pipelines</span><span class="skill-tag">API Integration</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">🌐</div>
-      <div class="skill-title">Full-Stack Web Dev</div>
-      <p style="font-size:.88rem;color:var(--muted);line-height:1.6;">1000+ websites and applications built — from complex SaaS architectures to blazing-fast business platforms.</p>
-      <div class="skill-items">
-        <span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">PHP</span><span class="skill-tag">WordPress</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Flutter</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">☁️</div>
-      <div class="skill-title">SaaS & Cloud Systems</div>
-      <p style="font-size:.88rem;color:var(--muted);line-height:1.6;">Architecting scalable, cloud-native SaaS products from the ground up — multi-tenant, API-first, and production-ready.</p>
-      <div class="skill-items">
-        <span class="skill-tag">SaaS Architecture</span><span class="skill-tag">MySQL</span><span class="skill-tag">MongoDB</span><span class="skill-tag">Firebase</span><span class="skill-tag">Docker</span><span class="skill-tag">GitHub</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">🛒</div>
-      <div class="skill-title">eCommerce & Growth</div>
-      <p style="font-size:.88rem;color:var(--muted);line-height:1.6;">Proven eCommerce operator — built and managed online stores from product listings to paid advertising and fulfilment optimization.</p>
-      <div class="skill-items">
-        <span class="skill-tag">Shopify</span><span class="skill-tag">Dropshipping</span><span class="skill-tag">Meta Ads</span><span class="skill-tag">Google Ads</span><span class="skill-tag">TikTok Ads</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">🎨</div>
-      <div class="skill-title">Design & Branding</div>
-      <p style="font-size:.88rem;color:var(--muted);line-height:1.6;">UI/UX design, graphics design, and professional video editing that goes beyond aesthetics — conversion-optimized interfaces.</p>
-      <div class="skill-items">
-        <span class="skill-tag">Figma</span><span class="skill-tag">UI/UX Prototyping</span><span class="skill-tag">Video Editing</span><span class="skill-tag">SEO</span><span class="skill-tag">HTML5/CSS3</span>
-      </div>
-    </div>
-  </div>
+<section class="section" id="about">
+<h2 class="section-title">About <span>Azwer</span></h2>
+
+<div class="grid">
+<div class="card">
+<h3>AI Engineering</h3>
+<p>
+Specialized in AI systems, autonomous agents, LLM integrations, workflow automation, voice systems, and intelligent business infrastructures.
+</p>
+</div>
+
+<div class="card">
+<h3>1000+ Projects</h3>
+<p>
+Delivered websites, AI platforms, SaaS products, automation systems, eCommerce stores, and enterprise infrastructures globally.
+</p>
+</div>
+
+<div class="card">
+<h3>Zalenca Technologies</h3>
+<p>
+Founder of Zalenca Technologies — an AI and digital solutions agency helping businesses automate, scale, and innovate.
+</p>
+</div>
+</div>
 </section>
 
-<!-- ════ SERVICES ════ -->
-<section id="services">
-  <div class="section-tag">What I Offer</div>
-  <h2 class="section-title">Premium <span>Services</span></h2>
-  <div class="services-grid">
-    <div class="service-item reveal">
-      <div class="service-num">01</div>
-      <div class="service-name">AI Automation Systems</div>
-      <p class="service-desc">End-to-end intelligent automation pipelines that replace repetitive workflows, integrate your tools, and operate 24/7. From chatbots to full-business-brain systems.</p>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-item reveal">
-      <div class="service-num">02</div>
-      <div class="service-name">SaaS Product Development</div>
-      <p class="service-desc">Full-cycle SaaS development from architecture to deployment. Multi-tenant platforms, subscription billing, user dashboards, and scalable backend infrastructure.</p>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-item reveal">
-      <div class="service-num">03</div>
-      <div class="service-name">AI Chatbot & Agent Development</div>
-      <p class="service-desc">Custom GPT-powered chatbots and autonomous AI agents trained on your business data — handling support, bookings, lead qualification, and complex multi-step reasoning.</p>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-item reveal">
-      <div class="service-num">04</div>
-      <div class="service-name">Business Management Systems</div>
-      <p class="service-desc">Custom ERP, CRM, POS, clinic, and college management systems. Built for your exact workflow — not off-the-shelf templates.</p>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-item reveal">
-      <div class="service-num">05</div>
-      <div class="service-name">AI Marketing & Content</div>
-      <p class="service-desc">AI-generated ad creatives, product videos, VFX content, and automated marketing pipelines that produce high-converting content at scale.</p>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-item reveal">
-      <div class="service-num">06</div>
-      <div class="service-name">Web & App Development</div>
-      <p class="service-desc">From corporate websites to complex Flutter apps, e-commerce stores, and custom platforms. 1000+ delivered. Built to convert, designed to impress.</p>
-      <div class="service-arrow">→</div>
-    </div>
-  </div>
+<section class="section">
+<h2 class="section-title">Journey & <span>Timeline</span></h2>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<h3>2021 — Freelancing Journey</h3>
+<p>Started professional development journey building websites and digital systems.</p>
+</div>
+
+<div class="timeline-item">
+<h3>2023 — Founded Zalenca Technologies</h3>
+<p>Built a global AI and digital solutions agency serving clients worldwide.</p>
+</div>
+
+<div class="timeline-item">
+<h3>2024 — AI Automation Expansion</h3>
+<p>Started developing advanced AI automation systems, AI agents, and SaaS infrastructures.</p>
+</div>
+
+<div class="timeline-item">
+<h3>Future Vision</h3>
+<p>Building globally recognized AI systems and educational platforms in Pakistan.</p>
+</div>
+
+</div>
 </section>
 
-<!-- ════ PROJECTS ════ -->
-<section id="projects">
-  <div class="section-tag">Portfolio</div>
-  <h2 class="section-title">Key <span>Projects</span></h2>
-  <div class="projects-filter">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="ai">AI Systems</button>
-    <button class="filter-btn" data-filter="saas">SaaS</button>
-    <button class="filter-btn" data-filter="management">Management</button>
-    <button class="filter-btn" data-filter="ecommerce">eCommerce</button>
-  </div>
-  <div class="projects-grid" id="projects-grid"></div>
+<section class="section" id="projects">
+<h2 class="section-title">AI & SaaS <span>Projects</span></h2>
+
+<div class="grid">
+
+<div class="card project-card">
+<div class="project-top">
+<div class="project-icon">🤖</div>
+<h3>AI Business Brain</h3>
+<p>
+A multi-agent AI system capable of automating operations, generating reports, managing tasks, and handling communication workflows autonomously.
+</p>
+
+<div class="tech-stack">
+<div class="tech">OpenAI</div>
+<div class="tech">LangChain</div>
+<div class="tech">Python</div>
+<div class="tech">Node.js</div>
+</div>
+</div>
+
+<button class="voice-btn" onclick="speakText('This AI Business Brain automates company operations and acts as a digital chief of staff.')">
+🎙 Hear Azwer Explain
+</button>
+</div>
+
+<div class="card project-card">
+<div class="project-top">
+<div class="project-icon">🧠</div>
+<h3>Talk With Azwer AI</h3>
+<p>
+An AI chatbot trained on Azwer Ullah's professional portfolio, achievements, skills, and company ecosystem.
+</p>
+
+<div class="tech-stack">
+<div class="tech">LLM</div>
+<div class="tech">Voice AI</div>
+<div class="tech">Web Speech API</div>
+</div>
+</div>
+
+<button class="voice-btn" onclick="speakText('This chatbot allows visitors to interact with my AI assistant directly.')">
+🎙 Hear Azwer Explain
+</button>
+</div>
+
+<div class="card project-card">
+<div class="project-top">
+<div class="project-icon">📊</div>
+<h3>AI Research Copilot</h3>
+<p>
+AI-powered research assistant capable of summarization, market analysis, insight generation, and competitor intelligence.
+</p>
+
+<div class="tech-stack">
+<div class="tech">AI Agents</div>
+<div class="tech">Automation</div>
+<div class="tech">Python</div>
+</div>
+</div>
+
+<button class="voice-btn" onclick="speakText('This project helps businesses analyze data and automate research.')">
+🎙 Hear Azwer Explain
+</button>
+</div>
+
+</div>
 </section>
 
-<!-- ════ AI SYSTEMS ════ -->
-<section id="ai-systems">
-  <div class="section-tag">Innovations</div>
-  <h2 class="section-title">Advanced <span>AI Systems</span></h2>
-  <div class="ai-systems-grid" id="ai-systems-grid"></div>
+<section class="section" id="ai">
+<h2 class="section-title">Advanced <span>AI Systems</span></h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Voice AI Agents</h3>
+<p>
+Human-like AI voice assistants capable of customer support, scheduling, and intelligent communication.
+</p>
+</div>
+
+<div class="card">
+<h3>AI Recruitment Engine</h3>
+<p>
+AI hiring assistant that filters applicants, scores candidates, and automates recruitment workflows.
+</p>
+</div>
+
+<div class="card">
+<h3>AI Sales Automation</h3>
+<p>
+Lead qualification, outreach automation, and AI-powered customer engagement systems.
+</p>
+</div>
+
+</div>
 </section>
 
-<!-- ════ COMPANY ════ -->
-<section id="company">
-  <div class="section-tag">The Company</div>
-  <div class="company-inner reveal">
-    <div class="company-logo">ZA<span>LENCA</span> TECHNOLOGIES</div>
-    <div class="company-tagline">AI · Web · App · Automation · Global</div>
-    <p class="company-desc">Founded in 2023, Zalenca Technologies is a global AI and technology agency delivering next-generation solutions to businesses worldwide. We don't just build software — we architect digital transformations. From AI automation to SaaS platforms, we turn visionary ideas into production-ready realities.</p>
-    <div class="company-stats">
-      <div class="company-stat"><div class="num">1000+</div><div class="lbl">Projects Delivered</div></div>
-      <div class="company-stat"><div class="num">4</div><div class="lbl">Continents Served</div></div>
-      <div class="company-stat"><div class="num">2023</div><div class="lbl">Founded</div></div>
-    </div>
-    <div class="company-services-list">
-      <div class="company-service">AI Development</div>
-      <div class="company-service">Web Development</div>
-      <div class="company-service">App Development</div>
-      <div class="company-service">SaaS Platforms</div>
-      <div class="company-service">AI Automation</div>
-      <div class="company-service">Graphics Design</div>
-      <div class="company-service">AI Marketing</div>
-      <div class="company-service">Business Systems</div>
-    </div>
-    <a href="https://zalenca.technology" target="_blank" rel="noopener" class="btn-primary">Visit Zalenca Technologies →</a>
-  </div>
+<section class="section" id="contact">
+<h2 class="section-title">Connect <span>With Me</span></h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Socials</h3>
+<p>
+Instagram: @azwer.ai
+<br><br>
+LinkedIn: Azwer Ullah
+<br><br>
+Website: zalenca.technology
+</p>
+</div>
+
+<div class="card">
+<h3>Email</h3>
+<p>
+azwerop@gmail.com
+</p>
+</div>
+
+</div>
 </section>
 
-<!-- ════ CONTACT ════ -->
-<section id="contact">
-  <div class="section-tag">Get In Touch</div>
-  <div class="contact-grid">
-    <div class="reveal">
-      <h2 class="contact-headline">Let's Build Something <span style="color:var(--cyan)">Extraordinary</span></h2>
-      <p class="contact-sub">Whether you need an AI automation system, a full SaaS product, or a business transformation strategy — I'm ready to engineer your vision into reality.</p>
-      <div class="contact-links">
-        <a href="https://www.instagram.com/azwer.ai/" target="_blank" rel="noopener" class="contact-link">
-          <div class="contact-link-icon">📸</div>
-          <div class="contact-link-info">
-            <div class="platform">Instagram</div>
-            <div class="handle">@azwer.ai</div>
-          </div>
-        </a>
-        <a href="https://www.linkedin.com/in/azwer-ullah-832069239/" target="_blank" rel="noopener" class="contact-link">
-          <div class="contact-link-icon">💼</div>
-          <div class="contact-link-info">
-            <div class="platform">LinkedIn</div>
-            <div class="handle">Azwer Ullah</div>
-          </div>
-        </a>
-        <a href="mailto:azwerop@gmail.com" class="contact-link">
-          <div class="contact-link-icon">✉️</div>
-          <div class="contact-link-info">
-            <div class="platform">Gmail</div>
-            <div class="handle">azwerop@gmail.com</div>
-          </div>
-        </a>
-        <a href="https://zalenca.technology" target="_blank" rel="noopener" class="contact-link">
-          <div class="contact-link-icon">🚀</div>
-          <div class="contact-link-info">
-            <div class="platform">Company</div>
-            <div class="handle">zalenca.technology</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="reveal">
-      <div class="contact-form">
-        <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" placeholder="John Smith" id="f-name"/>
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="john@company.com" id="f-email"/>
-        </div>
-        <div class="form-group">
-          <label>Project Type</label>
-          <select id="f-type">
-            <option value="">Select a service...</option>
-            <option>AI Automation System</option>
-            <option>SaaS Product Development</option>
-            <option>AI Chatbot / Agent</option>
-            <option>Business Management System</option>
-            <option>Web / App Development</option>
-            <option>AI Marketing & Content</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Message</label>
-          <textarea placeholder="Tell me about your project..." id="f-msg"></textarea>
-        </div>
-        <button class="form-submit" onclick="handleSubmit(this)">Send Message →</button>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="ai-chat-widget">
 
-<!-- FOOTER -->
+<div class="chat-header">
+<div class="chat-avatar">
+<img src="assets/avatar2.png">
+</div>
+<div>
+<h3>Talk With Azwer</h3>
+<p style="font-size:0.85rem;color:var(--muted)">AI Portfolio Assistant</p>
+</div>
+</div>
+
+<div class="chat-body" id="chatBody">
+<div class="message bot">
+Hello, I am Azwer AI. Ask me anything about Azwer Ullah, his projects, AI systems, or Zalenca Technologies.
+</div>
+</div>
+
+<div class="chat-input">
+<input type="text" id="userInput" placeholder="Ask about Azwer...">
+<button onclick="sendMessage()">Send</button>
+</div>
+
+</div>
+
 <footer>
-  <span>© 2025 <a href="https://zalenca.technology" target="_blank">Zalenca Technologies</a> · Azwer Ullah</span>
-  <span>AI Engineer · Founder · Builder</span>
-  <div class="footer-social">
-    <a href="https://www.instagram.com/azwer.ai/" target="_blank" rel="noopener" aria-label="Instagram">📸</a>
-    <a href="https://www.linkedin.com/in/azwer-ullah-832069239/" target="_blank" rel="noopener" aria-label="LinkedIn">💼</a>
-    <a href="mailto:azwerop@gmail.com" aria-label="Email">✉️</a>
-    <a href="https://zalenca.technology" target="_blank" rel="noopener" aria-label="Website">🌐</a>
-  </div>
+© 2026 Azwer Ullah — AI Engineer • Founder of Zalenca Technologies
 </footer>
 
-<!-- PROJECT MODAL -->
-<div id="modal-overlay">
-  <div class="modal-inner" id="modal-content"></div>
-</div>
-
-<!-- AI CHATBOT -->
-<button id="chat-fab" onclick="toggleChat()" aria-label="Chat with Azwer AI">
-  <div class="chat-pulse"></div>
-  <span>🤖</span>
-  <div class="chat-notif">AI</div>
-</button>
-<div id="chat-window">
-  <div class="chat-header">
-    <div class="chat-avatar">🤖</div>
-    <div class="chat-header-info">
-      <div class="chat-name">Azwer AI</div>
-      <div class="chat-status"><div class="chat-status-dot"></div>Online · Ask me anything</div>
-    </div>
-    <button class="chat-close" onclick="toggleChat()">✕</button>
-  </div>
-  <div class="chat-messages" id="chat-messages"></div>
-  <div class="chat-suggestions" id="chat-suggestions">
-    <button class="chat-sug" onclick="sendSuggestion(this)">What do you build?</button>
-    <button class="chat-sug" onclick="sendSuggestion(this)">Services & pricing</button>
-    <button class="chat-sug" onclick="sendSuggestion(this)">Tell me about Zalenca</button>
-    <button class="chat-sug" onclick="sendSuggestion(this)">Best AI projects</button>
-  </div>
-  <div class="chat-input-area">
-    <input class="chat-input" id="chat-input" type="text" placeholder="Ask Azwer anything..." onkeydown="if(event.key==='Enter')sendChat()"/>
-    <button class="chat-send" onclick="sendChat()">➤</button>
-  </div>
-</div>
-
 <script>
-/* ══════════════════════════════════════════
-   DATA — PROJECTS
-══════════════════════════════════════════ */
-const PROJECTS = [
-  {
-    id:1,emoji:'🍽️',title:'AI Restaurant Receptionist',
-    cats:['AI Systems','Automation'],filter:'ai',
-    desc:'An intelligent voice & chat AI receptionist that handles reservations, answers menu queries, and manages customer flow autonomously 24/7.',
-    tech:['OpenAI GPT-4','LangChain','Twilio','Node.js','Firebase'],
-    overview:'A fully autonomous restaurant front-of-house system powered by LLMs. The AI handles incoming calls, chats, and walk-in enquiries with natural conversational ability, integrating directly with booking calendars and POS systems.',
-    problem:'Restaurant owners lose significant revenue from missed calls during peak hours, and hiring dedicated receptionists is expensive. Manual booking systems create errors and double-bookings.',
-    solution:'Built a GPT-4 powered receptionist that integrates with the restaurant\'s booking calendar, menu database, and POS system. Handles voice calls via Twilio and chat via web widget simultaneously — zero human intervention needed.',
-    impact:['42% Fewer Missed Calls','$3K Monthly Saving','99.2% Booking Accuracy'],
-    voice:'This is the AI Restaurant Receptionist project. I built a fully autonomous front-of-house system powered by GPT-4 that handles incoming calls, chat enquiries and manages reservations 24 hours a day, 7 days a week. It integrates with booking calendars and POS systems, eliminating missed calls and booking errors. The result? 42 percent fewer missed calls and a $3,000 monthly saving for the restaurant.'
-  },
-  {
-    id:2,emoji:'📝',title:'AI Quiz & Exam Generator',
-    cats:['AI','EdTech'],filter:'ai',
-    desc:'Automated exam creation platform for professors — generates customized, plagiarism-resistant question papers from syllabi in seconds.',
-    tech:['OpenAI API','Python','FastAPI','React','PostgreSQL'],
-    overview:'An EdTech SaaS that allows professors to upload their course material and instantly generate varied, difficulty-calibrated exam papers, MCQs, and assignments at scale.',
-    problem:'Professors spend 5-10 hours creating each exam. Question banks become stale and students circulate old papers, compromising academic integrity.',
-    solution:'LLM-powered system that reads uploaded course documents, generates contextually accurate questions at specified difficulty levels, and randomizes paper variants to prevent cheating.',
-    impact:['95% Time Saved','500+ Professors','Zero Duplicate Papers'],
-    voice:'The AI Quiz and Exam Generator is an EdTech SaaS I built for professors. They upload their course materials, and my system uses large language models to instantly generate customized, plagiarism-resistant exam papers. We saved professors up to 95 percent of the time they used to spend creating exams, and onboarded over 500 educators so far.'
-  },
-  {
-    id:3,emoji:'👕',title:'Uniform Dropshipping Platform',
-    cats:['eCommerce','SaaS'],filter:'ecommerce',
-    desc:'Automated B2B dropshipping platform connecting uniform manufacturers with schools, hospitals, and corporate clients globally.',
-    tech:['Shopify','Python','Zapier','Make','MySQL'],
-    overview:'A multi-vendor dropshipping platform that automates the entire supply chain — from order to delivery — for bulk uniform orders across institutional clients.',
-    problem:'Institutional uniform procurement is manual, slow, and error-prone. Schools and hospitals struggle to manage multi-vendor orders with custom sizing requirements.',
-    solution:'Built an automated platform where institutions submit orders, the system routes to the right manufacturer, tracks production, and manages delivery — all without manual intervention.',
-    impact:['300% Order Efficiency','48hr Faster Delivery','12 Manufacturers Integrated'],
-    voice:'The Uniform Dropshipping Platform automates institutional uniform procurement for schools, hospitals and corporations. Orders flow in, get routed to the correct manufacturer, production is tracked, and delivery is managed — entirely automatically. We achieved a 300 percent improvement in order efficiency and cut delivery time by 48 hours.'
-  },
-  {
-    id:4,emoji:'🏫',title:'College Management System',
-    cats:['Management','SaaS'],filter:'management',
-    desc:'Full-featured institutional ERP covering student lifecycle, fee management, attendance, faculty, exams, and parent portals.',
-    tech:['PHP','MySQL','JavaScript','Bootstrap','REST API'],
-    overview:'A comprehensive college administration platform that digitizes every operational aspect from student enrollment to result cards and alumni tracking.',
-    problem:'Pakistani educational institutions still rely on paper-based systems and disconnected spreadsheets, causing data loss, reporting delays, and administrative chaos.',
-    solution:'Built an all-in-one web-based ERP with separate dashboards for admin, faculty, students, and parents — with real-time attendance, grade tracking, fee alerts, and exam scheduling.',
-    impact:['60% Admin Time Saved','3 Colleges Deployed','99.9% Uptime'],
-    voice:'My College Management System is a comprehensive ERP that fully digitizes educational institutions. It handles everything from student enrollment and attendance to fee management, exam scheduling and parent portals. Currently deployed at 3 colleges in Pakistan, saving 60 percent of administrative time and running at 99.9 percent uptime.'
-  },
-  {
-    id:5,emoji:'📊',title:'AI Mock Test Generator',
-    cats:['AI','EdTech'],filter:'ai',
-    desc:'Student-facing AI platform that generates personalized mock tests, tracks weak areas, and adapts difficulty to accelerate exam readiness.',
-    tech:['Python','OpenAI','React','Firebase','Chart.js'],
-    overview:'An adaptive learning platform for students preparing for competitive exams. AI generates personalized test sets based on performance history and syllabus gaps.',
-    problem:'Generic study apps give all students the same content. Students waste time on topics they know and neglect areas where they consistently fail.',
-    solution:'AI analyzes each student\'s answer history, identifies weak domains, and generates custom mock tests targeting those exact areas. Performance dashboards show real improvement over time.',
-    impact:['35% Better Exam Scores','2,000+ Students','4.8/5 User Rating'],
-    voice:'The AI Mock Test Generator is an adaptive learning platform where AI analyzes each student\'s performance history, identifies their weak areas, and generates personalized mock tests targeting those exact gaps. Over 2,000 students have used it, achieving 35 percent better exam scores on average, with a 4.8 out of 5 user rating.'
-  },
-  {
-    id:6,emoji:'🎬',title:'AI VFX Ad Generator',
-    cats:['AI','Marketing'],filter:'ai',
-    desc:'AI-powered product advertisement engine that generates cinematic VFX video ads from product photos — no video team required.',
-    tech:['Python','Stable Diffusion','FFmpeg','RunwayML','React'],
-    overview:'A SaaS tool that transforms basic product images into high-production-value video advertisements with AI-generated visual effects, motion graphics, and professional narration.',
-    problem:'Small and medium e-commerce businesses can\'t afford video production agencies. Poor-quality ads result in low conversion rates despite having good products.',
-    solution:'Upload a product image, select an ad style and target audience, and the AI generates a 15-30 second VFX ad complete with motion, lighting effects, background music, and a CTA overlay.',
-    impact:['80% Cost Reduction','3x Higher CTR','500+ Ads Generated'],
-    voice:'My AI VFX Ad Generator turns a simple product photo into a cinematic video advertisement in minutes. Small businesses upload their product image, choose an ad style, and the AI creates a professional 15 to 30 second video with visual effects, motion graphics, background music and a call to action. We cut ad production costs by 80 percent and tripled click-through rates.'
-  },
-  {
-    id:7,emoji:'🏋️',title:'AI Fitness Coach',
-    cats:['AI','Health'],filter:'ai',
-    desc:'Personalized AI fitness and nutrition coach that builds adaptive workout plans and real-time feedback based on biometric data.',
-    tech:['Python','OpenAI','Flutter','Firebase','HealthKit API'],
-    overview:'A mobile-first AI coaching app that acts as a personal trainer and nutritionist in your pocket — available 24/7, adapting to your progress and goals.',
-    problem:'Personal trainers are expensive and inaccessible. Generic fitness apps give the same program to a 60-year-old and a 22-year-old athlete.',
-    solution:'Integrates with wearables to collect biometric data, then uses AI to build truly personalized workout and meal plans that evolve weekly based on progress, energy levels, and feedback.',
-    impact:['28% Better Retention','1,500+ Active Users','4.9/5 App Rating'],
-    voice:'The AI Fitness Coach is a Flutter mobile app that acts as a personal trainer and nutritionist in your pocket. It integrates with wearables, collects your biometric data, and uses AI to build personalized workout and meal plans that adapt week by week based on your progress. With 1,500 active users and a 4.9 out of 5 rating, it\'s one of my most loved products.'
-  },
-  {
-    id:8,emoji:'🌐',title:'3D Holographic Restaurant Menu',
-    cats:['Innovation','SaaS'],filter:'saas',
-    desc:'Interactive 3D holographic digital menu system for restaurants — replacing paper menus with immersive food visualization experiences.',
-    tech:['Three.js','WebGL','React','Node.js','GSAP'],
-    overview:'A web-based 3D menu platform where restaurant dishes are displayed as interactive 3D models with ingredient layers, allergen info, and AR preview options.',
-    problem:'Static paper menus fail to communicate dish quality or inspire upselling. Digital menus are flat and boring, missing conversion opportunities.',
-    solution:'Built a Three.js powered 3D menu where customers can rotate dishes, see layered ingredient breakdowns, watch preparation micro-animations, and scan QR codes to launch AR previews.',
-    impact:['22% Higher Avg Order','15 Restaurants Deployed','Zero Printing Costs'],
-    voice:'The 3D Holographic Restaurant Menu replaces flat paper menus with interactive, immersive food visualization. Customers can rotate dishes in 3D, see ingredient breakdowns, and launch augmented reality previews — all from their phone. Deployed at 15 restaurants, it increased average order value by 22 percent and eliminated printing costs entirely.'
-  },
-  {
-    id:9,emoji:'🏥',title:'Clinic Management System',
-    cats:['Management','Healthcare'],filter:'management',
-    desc:'End-to-end digital clinic platform covering patient records, appointments, prescriptions, billing, and doctor performance analytics.',
-    tech:['PHP','MySQL','Bootstrap','Chart.js','REST API'],
-    overview:'A clinic ERP that digitizes every patient touchpoint — from walk-in registration to follow-up appointment scheduling and billing.',
-    problem:'Clinics lose patient files, miss follow-ups, and struggle with billing errors due to fragmented paper and spreadsheet systems.',
-    solution:'Built a unified system with patient history, appointment calendar with SMS reminders, digital prescription generation, inventory management for medicines, and revenue analytics dashboard.',
-    impact:['40% Fewer No-Shows','8 Clinics Active','Zero Record Loss'],
-    voice:'My Clinic Management System is a full ERP for healthcare providers. It covers patient registration, appointment scheduling with SMS reminders, digital prescriptions, medicine inventory and billing — all in one unified platform. Currently active at 8 clinics, it reduced no-show rates by 40 percent and eliminated patient record loss.'
-  },
-  {
-    id:10,emoji:'🔍',title:'AI Scam Website Detector',
-    cats:['AI','Security'],filter:'ai',
-    desc:'AI-powered cybersecurity tool that analyzes websites in real-time and scores their legitimacy to protect users from fraud.',
-    tech:['Python','ML Classification','Chrome Extension','FastAPI','Redis'],
-    overview:'A browser extension and web API that uses machine learning to analyze domain age, SSL status, content patterns, visual design cues, and blacklist databases to detect scam websites instantly.',
-    problem:'Online scams cost global consumers billions annually. Traditional blacklists are reactive and always 48-72 hours behind new scam domains.',
-    solution:'Trained a custom ML classifier on 50,000+ legitimate and fraudulent websites. The system analyzes 34 signals in under 200ms and provides a trust score with detailed reasoning.',
-    impact:['94.7% Detection Accuracy','2s Analysis Time','10K+ URLs Scanned'],
-    voice:'The AI Scam Website Detector is a Chrome extension and API that protects users from online fraud in real time. I trained a machine learning classifier on over 50,000 websites to analyze 34 trust signals in under 200 milliseconds. It achieves 94.7 percent detection accuracy and has already scanned over 10,000 URLs for users worldwide.'
-  },
-  {
-    id:11,emoji:'🛒',title:'POS System for Retail',
-    cats:['Management','Retail'],filter:'management',
-    desc:'Modern cloud-based Point of Sale system for retail businesses with inventory management, analytics, and multi-branch support.',
-    tech:['React','Node.js','MySQL','Electron.js','Stripe API'],
-    overview:'A desktop and web POS that handles sales transactions, real-time inventory tracking, multi-branch management, employee performance, and automated reorder alerts.',
-    problem:'Legacy POS systems are expensive, slow, and don\'t provide actionable analytics. Retail owners fly blind on inventory levels until shelves are empty.',
-    solution:'Built a modern Electron-based POS with offline mode, cloud sync, barcode scanning, multi-tender checkout, automatic low-stock alerts, and a real-time analytics dashboard.',
-    impact:['35% Faster Checkout','Zero Stock-Outs','12 Retail Locations'],
-    voice:'My cloud-based POS System for Retail modernizes point-of-sale for businesses across multiple branches. It works offline, syncs to the cloud, supports barcode scanning and multiple payment types, and sends automatic low-stock alerts. Deployed at 12 retail locations, it increased checkout speed by 35 percent and eliminated stock-out incidents.'
-  },
-  {
-    id:12,emoji:'📅',title:'AI Appointment Booking System',
-    cats:['AI','Automation'],filter:'ai',
-    desc:'Conversational AI booking system that handles scheduling, reminders, rescheduling, and cancellations without human involvement.',
-    tech:['OpenAI','Twilio','Google Calendar API','Node.js','Firebase'],
-    overview:'A fully autonomous AI scheduling agent that integrates with business calendars, communicates with clients via WhatsApp/SMS, and manages the entire appointment lifecycle.',
-    problem:'Service businesses waste hours daily on manual booking calls and suffer from no-shows due to lack of automated follow-ups.',
-    solution:'AI agent that chats naturally with clients to find available slots, books appointments, sends confirmation and 24hr reminder messages, handles rescheduling requests, and updates calendars automatically.',
-    impact:['70% Admin Time Saved','45% Fewer No-Shows','24/7 Booking'],
-    voice:'The AI Appointment Booking System is a fully autonomous scheduling agent. It chats naturally with clients via WhatsApp or SMS, finds available slots, books appointments, sends confirmations and 24-hour reminders, and handles rescheduling — all without any human involvement. Businesses using it save 70 percent of admin time and see 45 percent fewer no-shows.'
-  },
-  {
-    id:13,emoji:'🧾',title:'AI Invoice & Finance Automation',
-    cats:['AI','Automation'],filter:'ai',
-    desc:'Intelligent finance automation system that reads emails, extracts invoice data, reconciles payments, and generates financial reports automatically.',
-    tech:['Python','OpenAI','Zapier','QuickBooks API','PostgreSQL'],
-    overview:'An AI-powered accounts payable and receivable system that reads incoming invoices from email, extracts line items with OCR and LLMs, matches them to purchase orders, and posts to accounting software automatically.',
-    problem:'Finance teams spend dozens of hours weekly manually processing invoices, leading to late payments, missed discounts, and accounting errors that cost businesses thousands.',
-    solution:'Integrated email monitoring, AI document parsing, PO matching, anomaly detection, and automatic posting to QuickBooks/Xero. Flags discrepancies for human review only when needed.',
-    impact:['85% Processing Time Saved','99.1% Data Accuracy','$12K Annual Saving'],
-    voice:'My AI Invoice and Finance Automation system transforms finance operations. It monitors email inboxes, reads incoming invoices using OCR and language models, extracts all line items, matches them to purchase orders, and posts everything to QuickBooks automatically. Finance teams save 85 percent of processing time and achieve 99.1 percent data accuracy.'
-  },
-  {
-    id:14,emoji:'🎓',title:'AI Pakistani EdTech Platform',
-    cats:['AI','EdTech'],filter:'ai',
-    desc:'Comprehensive online education platform designed for Pakistani students with AI tutors, local curriculum alignment, and multilingual Urdu/English support.',
-    tech:['React','Python','OpenAI','Firebase','Flutter'],
-    overview:'A long-term vision project — building an EdTech platform that brings international-standard AI-powered education to Pakistani students in Urdu and English, covering MATRIC, FSC, and competitive exam preparation.',
-    problem:'Pakistani students lack access to quality, affordable, personalized education. Existing platforms are mostly in English and not aligned to the local curriculum.',
-    solution:'Built an adaptive platform with AI tutors that speak Urdu, generate curriculum-aligned practice tests, provide video explanations, and personalize learning paths based on student performance.',
-    impact:['Urdu AI Tutor Ready','5,000+ Beta Students','3 Curriculum Boards Covered'],
-    voice:'The AI Pakistani EdTech Platform is my most personal project — a long-term mission to bring international-quality AI-powered education to students in Pakistan. The platform features AI tutors that speak Urdu, generate curriculum-aligned practice tests, and personalize learning paths. We have over 5,000 beta students and cover 3 major curriculum boards.'
-  },
-  {
-    id:15,emoji:'🤝',title:'AI CRM & Lead Intelligence System',
-    cats:['AI','SaaS'],filter:'saas',
-    desc:'Smart CRM with AI lead scoring, automated follow-up sequences, conversation intelligence, and predictive deal closure analysis.',
-    tech:['React','Node.js','OpenAI','PostgreSQL','Stripe'],
-    overview:'A next-generation CRM that goes beyond storing contacts — it actively qualifies leads, drafts personalized outreach, analyzes call transcripts, predicts deal health, and automates follow-up sequences.',
-    problem:'Sales teams spend 60% of their time on admin tasks — logging calls, updating CRM records, writing follow-up emails — leaving less time for actual selling.',
-    solution:'AI handles all CRM data entry from call transcripts, scores leads against ideal customer profiles, drafts personalized follow-ups, and alerts sales reps only when their attention is actually needed.',
-    impact:['60% Less Admin Work','3x More Deals Closed','AI Follow-Up Sequences'],
-    voice:'My AI CRM and Lead Intelligence System transforms how sales teams work. Instead of spending 60 percent of their time on admin, the AI automatically logs call summaries, scores leads against ideal customer profiles, drafts personalized follow-up emails, and alerts reps only when their attention is needed. Teams using it close 3 times more deals.'
-  },
-];
 
-const AI_SYSTEMS = [
-  {icon:'🧠',badge:'Live',title:'Autonomous Business Brain',desc:'A multi-agent AI system that monitors business metrics, generates insights, drafts reports, responds to routine emails, and escalates only critical decisions to humans.'},
-  {icon:'🔄',badge:'Production',title:'Workflow Automation Engine',desc:'Drag-and-drop automation pipeline builder that connects 200+ apps and business tools. Define triggers, conditions, and actions — then let the engine run your operations 24/7.'},
-  {icon:'🕷️',badge:'Live',title:'Intelligent Web Scraping Suite',desc:'AI-powered data extraction system that handles dynamic JavaScript sites, CAPTCHAs, and rate limits. Structures raw scraped data into clean, actionable datasets automatically.'},
-  {icon:'📊',badge:'Beta',title:'AI Market Research Engine',desc:'Automated competitor analysis and market intelligence platform. Monitors competitor pricing, content, reviews, and social signals — delivers weekly strategic briefings.'},
-  {icon:'🤝',badge:'Live',title:'AI Lead Qualification Agent',desc:'Conversational AI agent that engages incoming leads on your website, qualifies them against your ICP, scores them, and routes hot leads to your sales team with full context.'},
-  {icon:'📧',badge:'Production',title:'AI Email Automation System',desc:'Writes, personalizes, and sends entire cold email sequences using AI. Adapts tone based on prospect research, handles replies intelligently, and books meetings autonomously.'},
-  {icon:'🎯',badge:'Live',title:'AI Competitor Analysis System',desc:'Real-time competitive intelligence engine that tracks competitor websites, social media, job postings, and press releases — synthesizes strategic opportunities using LLM analysis.'},
-  {icon:'⚙️',badge:'R&D',title:'AI Meeting Summarization Pipeline',desc:'Connects to Zoom/Meet/Teams, transcribes meetings in real-time, extracts action items, assigns owners, creates follow-up tasks in your PM tool, and emails summaries automatically.'},
-  {icon:'🔐',badge:'Live',title:'RAG Knowledge Base System',desc:'Retrieval-Augmented Generation system that turns your internal documents, wikis, and PDFs into an intelligent company brain — answering complex queries with accurate, sourced answers.'},
-  {icon:'🌐',badge:'Beta',title:'Multilingual AI Customer Support',desc:'AI support agent trained on your product docs that handles customer queries in 30+ languages, resolves tier-1 issues automatically, and escalates complex cases intelligently.'},
-];
+// Three.js Background
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+const renderer = new THREE.WebGLRenderer({canvas:document.getElementById('bg'),alpha:true});
+renderer.setSize(window.innerWidth,window.innerHeight);
 
-/* ══════════════════════════════════════════
-   THREE.JS HERO
-══════════════════════════════════════════ */
-(function initHero(){
-  const canvas = document.getElementById('hero-canvas');
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  camera.position.z = 5;
+const geometry = new THREE.BufferGeometry();
+const vertices = [];
 
-  // Particles
-  const pCount = window.innerWidth < 768 ? 800 : 1600;
-  const pos = new Float32Array(pCount * 3);
-  const col = new Float32Array(pCount * 3);
-  for(let i=0;i<pCount;i++){
-    pos[i*3]   = (Math.random()-.5)*20;
-    pos[i*3+1] = (Math.random()-.5)*20;
-    pos[i*3+2] = (Math.random()-.5)*20;
-    const t=Math.random();
-    col[i*3]=0; col[i*3+1]=t>.7?1:.72; col[i*3+2]=t>.7?.616:1;
-  }
-  const pg=new THREE.BufferGeometry();
-  pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  pg.setAttribute('color',new THREE.BufferAttribute(col,3));
-  scene.add(new THREE.Points(pg,new THREE.PointsMaterial({size:.04,vertexColors:true,transparent:true,opacity:.65})));
-
-  // Torus knot
-  const tk=new THREE.Mesh(
-    new THREE.TorusKnotGeometry(1.3,.3,140,20),
-    new THREE.MeshBasicMaterial({color:0x00f5ff,wireframe:true,transparent:true,opacity:.1})
-  );
-  tk.position.set(3.5,0,-2); scene.add(tk);
-
-  // Icosahedron
-  const ico=new THREE.Mesh(
-    new THREE.IcosahedronGeometry(.7,1),
-    new THREE.MeshBasicMaterial({color:0x00ff9d,wireframe:true,transparent:true,opacity:.18})
-  );
-  ico.position.set(-3.5,1.5,-1); scene.add(ico);
-
-  // Grid
-  const grid=new THREE.GridHelper(28,28,0x00f5ff,0x00f5ff);
-  grid.material.opacity=.035; grid.material.transparent=true;
-  grid.position.y=-4; scene.add(grid);
-
-  let mouse={x:0,y:0};
-  document.addEventListener('mousemove',e=>{
-    mouse.x=(e.clientX/window.innerWidth-.5)*2;
-    mouse.y=(e.clientY/window.innerHeight-.5)*2;
-  });
-  let t=0;
-  (function animate(){
-    requestAnimationFrame(animate); t+=.005;
-    tk.rotation.x+=.003; tk.rotation.y+=.005;
-    ico.rotation.x+=.006; ico.rotation.y+=.004;
-    if(window.innerWidth>768){
-      camera.position.x+=(mouse.x*.4-camera.position.x)*.04;
-      camera.position.y+=(-mouse.y*.3-camera.position.y)*.04;
-      camera.lookAt(scene.position);
-    }
-    grid.position.y=-4+Math.sin(t)*.25;
-    renderer.render(scene,camera);
-  })();
-  window.addEventListener('resize',()=>{
-    camera.aspect=window.innerWidth/window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth,window.innerHeight);
-  });
-})();
-
-/* ══════════════════════════════════════════
-   GLOBE
-══════════════════════════════════════════ */
-(function initGlobe(){
-  const canvas=document.getElementById('globe-canvas');
-  if(!canvas) return;
-  const r=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
-  r.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  const s=new THREE.Scene();
-  const c=new THREE.PerspectiveCamera(60,1,.1,100);
-  c.position.z=2.8;
-  s.add(new THREE.Mesh(new THREE.SphereGeometry(1,64,64),new THREE.MeshBasicMaterial({color:0x030810,transparent:true,opacity:.9})));
-  const wf=new THREE.Mesh(new THREE.SphereGeometry(1.01,28,28),new THREE.MeshBasicMaterial({color:0x00f5ff,wireframe:true,transparent:true,opacity:.13}));
-  s.add(wf);
-  [{lat:31.5,lng:74.3},{lat:43.8,lng:-79.2},{lat:25.2,lng:55.3},{lat:39.9,lng:116.4}].forEach(({lat,lng})=>{
-    const phi=(90-lat)*(Math.PI/180),theta=(lng+180)*(Math.PI/180);
-    const x=-Math.sin(phi)*Math.cos(theta),y=Math.cos(phi),z=Math.sin(phi)*Math.sin(theta);
-    const dot=new THREE.Mesh(new THREE.SphereGeometry(.04,8,8),new THREE.MeshBasicMaterial({color:0x00ff9d}));
-    dot.position.set(x,y,z); s.add(dot);
-    const ring=new THREE.Mesh(new THREE.TorusGeometry(.08,.005,8,24),new THREE.MeshBasicMaterial({color:0x00ff9d,transparent:true,opacity:.5}));
-    ring.position.set(x,y,z); ring.lookAt(0,0,0); s.add(ring);
-  });
-  const orbit=new THREE.Mesh(new THREE.TorusGeometry(1.3,.003,4,80),new THREE.MeshBasicMaterial({color:0x00f5ff,transparent:true,opacity:.28}));
-  orbit.rotation.x=Math.PI/6; orbit.rotation.z=Math.PI/8; s.add(orbit);
-  const od=new THREE.Mesh(new THREE.SphereGeometry(.04,8,8),new THREE.MeshBasicMaterial({color:0x00f5ff}));
-  s.add(od);
-  function resize(){const w=canvas.parentElement.clientWidth;r.setSize(w,w);c.updateProjectionMatrix();}
-  resize(); window.addEventListener('resize',resize);
-  let ti=0;
-  (function loop(){requestAnimationFrame(loop);ti+=.008;wf.rotation.y=ti*.3;
-    const a=ti*.8;od.position.set(1.3*Math.cos(a)*Math.cos(Math.PI/6),1.3*Math.sin(a),1.3*Math.cos(a)*Math.sin(Math.PI/6));
-    r.render(s,c);})();
-})();
-
-/* ══════════════════════════════════════════
-   CURSOR
-══════════════════════════════════════════ */
-if(window.matchMedia('(pointer:fine)').matches){
-  const cursor=document.getElementById('cursor'),trail=document.getElementById('cursor-trail');
-  let cx=0,cy=0,tx=0,ty=0;
-  document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cursor.style.left=cx+'px';cursor.style.top=cy+'px';});
-  (function animC(){requestAnimationFrame(animC);tx+=(cx-tx)*.12;ty+=(cy-ty)*.12;trail.style.left=tx+'px';trail.style.top=ty+'px';})();
+for(let i=0;i<5000;i++){
+vertices.push((Math.random()-0.5)*2000);
+vertices.push((Math.random()-0.5)*2000);
+vertices.push((Math.random()-0.5)*2000);
 }
 
-/* ══════════════════════════════════════════
-   NAV
-══════════════════════════════════════════ */
-const navbar=document.getElementById('navbar');
-window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>60));
-const hamburger=document.getElementById('hamburger');
-const navMobile=document.getElementById('nav-mobile');
-hamburger.addEventListener('click',()=>navMobile.classList.toggle('open'));
-document.querySelectorAll('.nav-mobile a').forEach(a=>a.addEventListener('click',()=>navMobile.classList.remove('open')));
+geometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));
 
-/* ══════════════════════════════════════════
-   HERO ANIMATION
-══════════════════════════════════════════ */
-window.addEventListener('load',()=>{
-  const tl=gsap.timeline();
-  tl.to('.hero-tag',{opacity:1,y:0,duration:.8,ease:'power3.out'},.3)
-    .to('.hero-h1 .word',{y:0,stagger:.15,duration:.9,ease:'power3.out'},.5)
-    .to('.hero-sub',{opacity:1,y:0,duration:.7,ease:'power3.out'},1.1)
-    .to('.hero-btns',{opacity:1,y:0,duration:.7,ease:'power3.out'},1.3)
-    .to('.hero-stats',{opacity:1,y:0,duration:.7,ease:'power3.out'},1.5);
-
-  // Count up
-  document.querySelectorAll('[data-count]').forEach(el=>{
-    const target=parseInt(el.dataset.count);
-    let cur=0;const step=Math.max(1,Math.ceil(target/50));
-    const timer=setInterval(()=>{cur=Math.min(cur+step,target);el.textContent=cur+(target>=100?'+':'');if(cur>=target)clearInterval(timer);},40);
-  });
+const material = new THREE.PointsMaterial({
+color:0x00f0ff,
+size:2
 });
 
-/* ══════════════════════════════════════════
-   SCROLL REVEAL
-══════════════════════════════════════════ */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
-},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const particles = new THREE.Points(geometry,material);
+scene.add(particles);
 
-/* ══════════════════════════════════════════
-   SERVICE GLOW
-══════════════════════════════════════════ */
-document.querySelectorAll('.service-item').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
-    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
-  });
+camera.position.z = 500;
+
+function animate(){
+requestAnimationFrame(animate);
+particles.rotation.y += 0.0005;
+renderer.render(scene,camera);
+}
+
+animate();
+
+window.addEventListener('resize',()=>{
+renderer.setSize(window.innerWidth,window.innerHeight);
+camera.aspect = window.innerWidth/window.innerHeight;
+camera.updateProjectionMatrix();
 });
 
-/* ══════════════════════════════════════════
-   PHOTO SLIDER
-══════════════════════════════════════════ */
-(function initSlider(){
-  const slider=document.getElementById('photo-slider');
-  const dotsWrap=document.getElementById('photo-dots');
-  const slides=slider.querySelectorAll('.photo-slide');
-  let current=0;
-  slides.forEach((_,i)=>{
-    const d=document.createElement('button');
-    d.className='photo-dot'+(i===0?' active':'');
-    d.setAttribute('aria-label','Slide '+(i+1));
-    d.onclick=()=>goTo(i);
-    dotsWrap.appendChild(d);
-  });
-  function goTo(n){
-    current=((n%slides.length)+slides.length)%slides.length;
-    slider.style.transform=`translateX(-${current*100}%)`;
-    dotsWrap.querySelectorAll('.photo-dot').forEach((d,i)=>d.classList.toggle('active',i===current));
-  }
-  document.getElementById('photo-prev').onclick=()=>goTo(current-1);
-  document.getElementById('photo-next').onclick=()=>goTo(current+1);
-  // Auto-advance
-  let autoTimer=setInterval(()=>goTo(current+1),5000);
-  slider.addEventListener('touchstart',()=>clearInterval(autoTimer),{passive:true});
-  // Touch swipe
-  let startX=0;
-  slider.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
-  slider.addEventListener('touchend',e=>{
-    const dx=e.changedTouches[0].clientX-startX;
-    if(Math.abs(dx)>40) goTo(current+(dx<0?1:-1));
-  });
-})();
+// AI CHATBOT
+function sendMessage(){
 
-/* ══════════════════════════════════════════
-   BUILD PROJECTS
-══════════════════════════════════════════ */
-function buildProjects(filter='all'){
-  const grid=document.getElementById('projects-grid');
-  const filtered=filter==='all'?PROJECTS:PROJECTS.filter(p=>p.filter===filter);
-  grid.innerHTML=filtered.map(p=>`
-    <div class="project-card reveal" onclick="openModal(${p.id})">
-      <div class="project-img">
-        <div class="project-emoji">${p.emoji}</div>
-        <div class="project-img-overlay"></div>
-        <div class="project-hover-btn">View Case Study</div>
-      </div>
-      <button class="project-voice-btn" onclick="event.stopPropagation();speakProject(${p.id},this)" title="Listen to project overview">🔊</button>
-      <div class="project-body">
-        <div class="project-cats">${p.cats.map(c=>`<span class="project-cat">${c}</span>`).join('')}</div>
-        <div class="project-title">${p.title}</div>
-        <p class="project-desc">${p.desc}</p>
-        <div class="project-tech">${p.tech.map(t=>`<span class="tech-tag">${t}</span>`).join('')}</div>
-      </div>
-    </div>
-  `).join('');
-  grid.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const input = document.getElementById('userInput');
+const chatBody = document.getElementById('chatBody');
+
+const text = input.value.trim();
+
+if(!text) return;
+
+const userMessage = document.createElement('div');
+userMessage.className = 'message user';
+userMessage.innerText = text;
+chatBody.appendChild(userMessage);
+
+let response = 'Azwer is an AI Engineer and founder of Zalenca Technologies.';
+
+if(text.toLowerCase().includes('projects')){
+response = 'Azwer has completed 1000+ projects including AI systems, SaaS platforms, automation pipelines, and enterprise infrastructures.';
 }
-buildProjects();
-document.querySelectorAll('.filter-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    buildProjects(btn.dataset.filter);
-  });
+
+if(text.toLowerCase().includes('zalenca')){
+response = 'Zalenca Technologies is a global AI and software solutions agency founded by Azwer Ullah.';
+}
+
+if(text.toLowerCase().includes('skills')){
+response = 'Azwer specializes in AI Engineering, Full Stack Development, Automation Systems, SaaS Development, and AI Agents.';
+}
+
+setTimeout(()=>{
+const botMessage = document.createElement('div');
+botMessage.className = 'message bot';
+botMessage.innerText = response;
+chatBody.appendChild(botMessage);
+chatBody.scrollTop = chatBody.scrollHeight;
+speakText(response);
+},700);
+
+input.value='';
+}
+
+// Voice Agent
+function speakText(text){
+const speech = new SpeechSynthesisUtterance(text);
+speech.rate = 1;
+speech.pitch = 1;
+speech.lang = 'en-US';
+window.speechSynthesis.speak(speech);
+}
+
+// GSAP Animations
+
+gsap.from('.hero-left h1',{
+y:80,
+opacity:0,
+duration:1
 });
 
-/* ══════════════════════════════════════════
-   AI SYSTEMS
-══════════════════════════════════════════ */
-document.getElementById('ai-systems-grid').innerHTML=AI_SYSTEMS.map(s=>`
-  <div class="ai-card reveal">
-    <div class="ai-badge">${s.badge}</div>
-    <div class="ai-card-icon">${s.icon}</div>
-    <div class="ai-card-title">${s.title}</div>
-    <p class="ai-card-desc">${s.desc}</p>
-  </div>
-`).join('');
-document.querySelectorAll('#ai-systems-grid .reveal').forEach(el=>observer.observe(el));
+gsap.from('.hero-left p',{
+y:50,
+opacity:0,
+duration:1,
+delay:0.3
+});
 
-/* ══════════════════════════════════════════
-   VOICE AGENT
-══════════════════════════════════════════ */
-let currentUtterance=null;
-let activeVoiceBtn=null;
-let activeModalBtn=null;
+gsap.utils.toArray('.card').forEach(card=>{
+gsap.from(card,{
+scrollTrigger:card,
+y:80,
+opacity:0,
+duration:1
+});
+});
 
-function getVoice(){
-  const voices=window.speechSynthesis.getVoices();
-  return voices.find(v=>v.lang.startsWith('en')&&(v.name.includes('Male')||v.name.includes('Daniel')||v.name.includes('Alex')))||
-         voices.find(v=>v.lang.startsWith('en'))||voices[0];
-}
-
-function speak(text, onEnd){
-  if(!window.speechSynthesis){ alert('Voice not supported in your browser.'); return; }
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.voice=getVoice();
-  u.rate=1.0; u.pitch=1.0; u.volume=1;
-  u.onend=()=>{ if(onEnd) onEnd(); };
-  currentUtterance=u;
-  window.speechSynthesis.speak(u);
-}
-
-function speakProject(id, btn){
-  const p=PROJECTS.find(x=>x.id===id);
-  if(!p) return;
-  if(btn.classList.contains('speaking')){
-    window.speechSynthesis.cancel();
-    btn.classList.remove('speaking');
-    btn.textContent='🔊';
-    activeVoiceBtn=null;
-    return;
-  }
-  if(activeVoiceBtn){ activeVoiceBtn.classList.remove('speaking'); activeVoiceBtn.textContent='🔊'; }
-  btn.classList.add('speaking'); btn.textContent='⏹️'; activeVoiceBtn=btn;
-  speak(p.voice,()=>{btn.classList.remove('speaking');btn.textContent='🔊';activeVoiceBtn=null;});
-}
-
-function speakModalProject(id, btn){
-  const p=PROJECTS.find(x=>x.id===id);
-  if(!p) return;
-  if(btn.classList.contains('active')){
-    window.speechSynthesis.cancel();
-    btn.classList.remove('active');
-    btn.querySelector('.btn-label').textContent='▶  Listen to Overview';
-    return;
-  }
-  btn.classList.add('active');
-  btn.querySelector('.btn-label').textContent='⏹  Stop Audio';
-  speak(p.voice,()=>{
-    btn.classList.remove('active');
-    btn.querySelector('.btn-label').textContent='▶  Listen to Overview';
-  });
-}
-
-// Load voices
-if(window.speechSynthesis) window.speechSynthesis.onvoiceschanged=()=>{};
-
-/* ══════════════════════════════════════════
-   MODAL
-══════════════════════════════════════════ */
-function openModal(id){
-  const p=PROJECTS.find(x=>x.id===id);
-  if(!p) return;
-  const overlay=document.getElementById('modal-overlay');
-  const content=document.getElementById('modal-content');
-  content.innerHTML=`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-tag">${p.cats.join(' · ')}</div>
-    <span class="modal-emoji-lg">${p.emoji}</span>
-    <h2 class="modal-title">${p.title}</h2>
-    <button class="modal-voice-btn" onclick="speakModalProject(${p.id},this)">
-      <span class="voice-icon">🎙️</span>
-      <span class="btn-label">▶  Listen to Overview</span>
-      <div class="wave-bars"><span></span><span></span><span></span><span></span><span></span></div>
-    </button>
-    <div class="modal-section">
-      <h3>Overview</h3>
-      <p>${p.overview}</p>
-    </div>
-    <div class="case-grid">
-      <div class="case-block"><h4>The Problem</h4><p>${p.problem}</p></div>
-      <div class="case-block"><h4>The Solution</h4><p>${p.solution}</p></div>
-    </div>
-    <div class="modal-section">
-      <h3>Technologies Used</h3>
-      <div class="modal-tech-list">${p.tech.map(t=>`<span class="modal-tech">${t}</span>`).join('')}</div>
-    </div>
-    <div class="modal-section">
-      <h3>Impact & Results</h3>
-      <div class="impact-grid">${p.impact.map(i=>{
-        const m=i.match(/^([0-9\/%.KxK+]+)(.*)/);
-        return m?`<div class="impact-stat"><span class="num">${m[1]}</span><span class="lbl">${m[2].trim()}</span></div>`
-               :`<div class="impact-stat"><span class="num">✓</span><span class="lbl">${i}</span></div>`;
-      }).join('')}</div>
-    </div>
-  `;
-  overlay.style.display='block';
-  requestAnimationFrame(()=>overlay.classList.add('open'));
-  document.body.style.overflow='hidden';
-}
-function closeModal(){
-  window.speechSynthesis&&window.speechSynthesis.cancel();
-  const overlay=document.getElementById('modal-overlay');
-  overlay.classList.remove('open');
-  setTimeout(()=>{overlay.style.display='none';document.body.style.overflow='';},400);
-}
-document.getElementById('modal-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
-
-/* ══════════════════════════════════════════
-   CHATBOT
-══════════════════════════════════════════ */
-const AZWER_CONTEXT = `You are "Azwer AI", the intelligent virtual representative of Azwer Ullah — an AI Engineer, Full Stack Developer, and Founder of Zalenca Technologies. You speak in first person as Azwer, answering questions about his professional background, skills, projects, company, and services.
-
-KEY FACTS ABOUT AZWER ULLAH:
-- Name: Azwer Ullah
-- Role: AI Engineer, Automation Architect, Entrepreneur, Founder & CEO of Zalenca Technologies
-- Experience: 5+ years, 1000+ projects delivered
-- Currently: Pursuing a Major in AI, AI Engineer at Turing, Co-Founding Engineer at Urtaqa
-- Location: Lahore, Pakistan (also operates in Canada, Dubai, China)
-- Email: azwerop@gmail.com
-- Instagram: @azwer.ai
-- LinkedIn: Azwer Ullah
-- Company website: zalenca.technology
-
-SKILLS: AI/ML (OpenAI APIs, LangChain, Prompt Engineering, NLP, LLM integration, RAG systems), Automation (Zapier, Make, n8n, custom pipelines), Full-Stack (Python, JavaScript, PHP, Flutter, WordPress), SaaS & Cloud (MySQL, MongoDB, Firebase, Docker), eCommerce (Shopify, dropshipping, Meta/Google/TikTok Ads), Design (Figma, UI/UX, Video Editing, SEO)
-
-SERVICES: AI Automation Systems, SaaS Product Development, AI Chatbot & Agent Development, Business Management Systems (ERP/CRM/POS), AI Marketing & Content, Web & App Development
-
-KEY PROJECTS: AI Restaurant Receptionist, AI Exam Generator, College Management System, AI Fitness Coach, Clinic Management System, POS System, AI Appointment Booking, AI VFX Ad Generator, Scam Website Detector, 3D Holographic Menu, AI CRM System, Pakistani EdTech Platform, and more.
-
-COMPANY (Zalenca Technologies): Founded 2023, global AI & tech agency, serving 4 continents, 1000+ projects. Visit zalenca.technology
-
-Respond warmly, professionally, and concisely. Keep answers under 4 sentences unless more detail is specifically requested. If asked about pricing, say to contact directly. Always encourage the visitor to explore the portfolio or reach out.`;
-
-let chatHistory=[];
-let chatOpen=false;
-
-function toggleChat(){
-  chatOpen=!chatOpen;
-  document.getElementById('chat-window').classList.toggle('open',chatOpen);
-  if(chatOpen&&chatHistory.length===0){
-    addBotMsg("Hey! 👋 I'm Azwer AI — ask me anything about my work, projects, skills, or how we can collaborate. What would you like to know?");
-  }
-}
-
-function addBotMsg(text){
-  const msgs=document.getElementById('chat-messages');
-  const d=document.createElement('div');
-  d.className='msg bot';
-  d.innerHTML=`<div class="msg-bubble">${text}</div><div class="msg-meta">Azwer AI · just now</div>`;
-  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
-}
-function addUserMsg(text){
-  const msgs=document.getElementById('chat-messages');
-  const d=document.createElement('div');
-  d.className='msg user';
-  d.innerHTML=`<div class="msg-bubble">${text}</div><div class="msg-meta">You · just now</div>`;
-  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
-}
-function showTyping(){
-  const msgs=document.getElementById('chat-messages');
-  const d=document.createElement('div');
-  d.className='msg bot chat-typing'; d.id='typing-indicator';
-  d.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
-  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
-}
-function hideTyping(){const t=document.getElementById('typing-indicator');if(t)t.remove();}
-
-async function sendChat(){
-  const input=document.getElementById('chat-input');
-  const text=input.value.trim();
-  if(!text) return;
-  input.value='';
-  // Hide suggestions after first message
-  document.getElementById('chat-suggestions').style.display='none';
-  addUserMsg(text);
-  chatHistory.push({role:'user',content:text});
-  showTyping();
-
-  try{
-    const response=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:400,
-        system:AZWER_CONTEXT,
-        messages:chatHistory
-      })
-    });
-    const data=await response.json();
-    hideTyping();
-    const reply=data.content?.[0]?.text||"I'm having a moment — please try again or email azwerop@gmail.com directly!";
-    addBotMsg(reply);
-    chatHistory.push({role:'assistant',content:reply});
-  }catch(err){
-    hideTyping();
-    // Fallback intelligent responses for common questions
-    const q=text.toLowerCase();
-    let fallback="Great question! For the most accurate answer, I'd recommend reaching out directly at azwerop@gmail.com or on Instagram @azwer.ai. I respond within 24 hours!";
-    if(q.includes('project')||q.includes('work')||q.includes('portfolio'))
-      fallback="I've delivered 1000+ projects including AI automation systems, SaaS platforms, business management systems, and more. Scroll up to see my featured portfolio — each card has a detailed case study and you can even listen to an audio overview! 🎧";
-    else if(q.includes('service')||q.includes('offer')||q.includes('build'))
-      fallback="I offer AI Automation, SaaS Development, AI Chatbots & Agents, Business Systems (ERP/CRM/POS), AI Marketing, and Web/App Development. Check the Services section for full details!";
-    else if(q.includes('price')||q.includes('cost')||q.includes('rate')||q.includes('quote'))
-      fallback="Pricing depends on your project scope. Let's discuss! Reach me at azwerop@gmail.com or fill the contact form below — I typically respond within 24 hours with a detailed proposal. 🚀";
-    else if(q.includes('zalenca')||q.includes('company'))
-      fallback="Zalenca Technologies is my AI & tech agency founded in 2023. We serve clients across 4 continents, have 1000+ projects delivered, and specialize in AI, web, app, and automation solutions. Visit zalenca.technology to learn more!";
-    else if(q.includes('contact')||q.includes('reach')||q.includes('hire'))
-      fallback="Let's connect! 📧 Email: azwerop@gmail.com | 📸 Instagram: @azwer.ai | 💼 LinkedIn: Azwer Ullah | Or use the contact form at the bottom of the page. I'm ready to build something extraordinary with you!";
-    addBotMsg(fallback);
-    chatHistory.push({role:'assistant',content:fallback});
-  }
-}
-
-function sendSuggestion(btn){
-  document.getElementById('chat-input').value=btn.textContent;
-  sendChat();
-}
-
-/* ══════════════════════════════════════════
-   CONTACT FORM
-══════════════════════════════════════════ */
-function handleSubmit(btn){
-  btn.textContent='Sending...';
-  btn.disabled=true;
-  setTimeout(()=>{
-    btn.textContent='✓ Message Sent! I\'ll respond within 24 hours.';
-    btn.style.background='var(--green)';
-    btn.style.clipPath='none';
-  },1500);
-}
-
-/* ══════════════════════════════════════════
-   GSAP SCROLL TRIGGERS
-══════════════════════════════════════════ */
-gsap.registerPlugin(ScrollTrigger);
-gsap.from('.company-logo',{scrollTrigger:{trigger:'#company',start:'top 80%'},y:60,opacity:0,duration:1,ease:'power3.out'});
-gsap.from('.company-stat',{scrollTrigger:{trigger:'.company-stats',start:'top 80%'},y:40,opacity:0,stagger:.15,duration:.8,ease:'power3.out'});
 </script>
 
-<!-- ════════════════════════════════════════════
-     DEPLOYMENT GUIDE (hidden, for reference)
-════════════════════════════════════════════ -->
-<!--
-===========================================
-DEPLOYMENT GUIDE FOR GITHUB PAGES
-ON CHROMEOS (Linux / Terminal)
-===========================================
-
-STEP 1: ENABLE LINUX ON CHROMEOS
-- Open Settings → Advanced → Developers
-- Turn on "Linux development environment"
-- Follow the setup wizard (installs Debian/Linux terminal)
-
-STEP 2: OPEN LINUX TERMINAL
-- Press Search key and type "Terminal"
-- Open the Penguin (Linux) terminal
-
-STEP 3: INSTALL GIT (if not already installed)
-  sudo apt update && sudo apt install git -y
-
-STEP 4: CONFIGURE GIT
-  git config --global user.name "Azwer Ullah"
-  git config --global user.email "azwerop@gmail.com"
-
-STEP 5: CREATE GITHUB ACCOUNT (if needed)
-- Go to github.com and sign up
-
-STEP 6: CREATE A NEW REPOSITORY
-- Go to github.com → New Repository
-- Name it: azwer-portfolio (or your-username.github.io for root domain)
-- Set to Public
-- Do NOT initialize with README
-
-STEP 7: MOVE YOUR PORTFOLIO FILE TO LINUX
-- In Files app, go to Linux Files folder
-- Copy azwer-portfolio.html there
-- Also copy your 3 photos there (same folder):
-    ChatGPT_Image_May_18__2026__08_42_42_PM.png
-    ChatGPT_Image_May_17__2026__03_32_33_PM.png
-    ChatGPT_Image_May_17__2026__03_32_27_PM.png
-
-STEP 8: RENAME THE HTML FILE
-  mv azwer-portfolio.html index.html
-
-STEP 9: INITIALIZE GIT REPO
-  cd ~/  (or wherever your files are)
-  git init
-  git add .
-  git commit -m "Launch: Azwer Ullah AI Portfolio"
-
-STEP 10: CONNECT TO GITHUB
-  git remote add origin https://github.com/YOUR_USERNAME/azwer-portfolio.git
-  git branch -M main
-  git push -u origin main
-
-STEP 11: ENABLE GITHUB PAGES
-- Go to your repo on github.com
-- Settings → Pages
-- Source: Deploy from branch → main → / (root)
-- Click Save
-
-STEP 12: YOUR SITE IS LIVE!
-  URL: https://YOUR_USERNAME.github.io/azwer-portfolio/
-  (For user site: https://YOUR_USERNAME.github.io/)
-
-STEP 13: CUSTOM DOMAIN (OPTIONAL)
-- Buy domain (e.g. azwerullah.com)
-- In GitHub Pages settings → Custom domain → enter domain
-- In your domain DNS, add CNAME record pointing to YOUR_USERNAME.github.io
-
-NOTES:
-- GitHub Pages takes 2-10 minutes to deploy after push
-- All 3 photos MUST be in the same folder as index.html
-- To update later: edit files → git add . → git commit -m "update" → git push
-===========================================
--->
 </body>
 </html>
